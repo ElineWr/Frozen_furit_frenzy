@@ -1,6 +1,6 @@
 
 from objekter import Object
-from constants import PLAYER_SPEED
+from constants import PLAYER_SPEED, WIDTH, HEIGHT
 from pygame.locals import (K_UP, K_DOWN, K_LEFT, K_RIGHT)
 from bilder import *
 
@@ -19,15 +19,15 @@ class Player(Object):
         keys_pressed = pg.key.get_pressed()
         if keys_pressed[K_LEFT] and self.x > 0:
             self.x -= PLAYER_SPEED
-            self.image = link_l
+            # self.image = link_l
         if keys_pressed[K_RIGHT] and self.x < WIDTH:
-            self.x += PLAYER_SPEED
+            # self.x += PLAYER_SPEED
         if keys_pressed[K_UP] and self.y > 0:
             self.y -= PLAYER_SPEED
-            self.image = link_u
+            # self.image = link_u
         if keys_pressed[K_DOWN] and self.y < HEIGHT:
             self.y += PLAYER_SPEED
-            self.image = link_d
+            # self.image = link_d
 
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y))
