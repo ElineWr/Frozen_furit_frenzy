@@ -12,7 +12,7 @@ screen = pg.display.set_mode(SIZE)
 # Merk: Kan ikke laste inn font og bilder før vi har gjort pg.init:
 #from tekst import *
 #from bilder import *
-#from player import Player
+from player import Player
 from objekter import *
 
 
