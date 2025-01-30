@@ -11,3 +11,6 @@ house = pg.transform.scale(house, SIZE)
 camp = pg.transform.scale(camp, SIZE)
 cave = pg.transform.scale(cave, SIZE)
 coast = pg.transform.scale(coast, SIZE)
+
+victor = pg.image.load("assets/victor.png").convert_alpha()
+victor = pg.transform.scale(victor, (100, 50))
