@@ -13,4 +13,4 @@ cave = pg.transform.scale(cave, SIZE)
 coast = pg.transform.scale(coast, SIZE)
 
 victor = pg.image.load("assets/victor.png").convert_alpha()
-victor = pg.transform.scale(victor, (100, 50))
+victor = pg.transform.scale(victor, (200, 50))
