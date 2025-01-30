@@ -16,7 +16,7 @@ from player import Player
 from objekter import *
 
 
-player = Player(x = 100, y = 100, dy = 0, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
+player = Player(x = 700, y = 220, dy = 1, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
 
 
 running = True
@@ -36,8 +36,8 @@ while running:
     # # TODO: Skriv inn scoren som en tekst øverst på skjermen (bruk aunivers)
 
     # # Flytter og tegner spilleren:
-    # player.draw(screen)
-    # player.move()
+    player.draw(screen)
+    player.move()
     # #diamant.tegn(screen)
 
 

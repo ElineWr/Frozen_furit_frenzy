@@ -19,15 +19,15 @@ class Player(Object):
         keys_pressed = pg.key.get_pressed()
         if keys_pressed[K_LEFT] and self.x > 0:
             self.x -= PLAYER_SPEED
-            # self.image = link_l
+            self.image = victor
         if keys_pressed[K_RIGHT] and self.x < WIDTH:
-            # self.x += PLAYER_SPEED
+            self.x += PLAYER_SPEED
         if keys_pressed[K_UP] and self.y > 0:
             self.y -= PLAYER_SPEED
-            # self.image = link_u
+            self.image = victor
         if keys_pressed[K_DOWN] and self.y < HEIGHT:
             self.y += PLAYER_SPEED
-            # self.image = link_d
+            self.image = victor
 
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y))
