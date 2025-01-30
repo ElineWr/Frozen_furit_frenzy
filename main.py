@@ -16,7 +16,7 @@ from player import Player
 from objekter import *
 
 
-player = Player(WIDTH/2+5, 260)
+# player = Player(WIDTH/2+5, 260)
 
 
 running = True
@@ -32,13 +32,13 @@ while running:
     # Tegner bakgrunnsbildet:
     screen.blit(house, (0, 0))
 
-    # Skriver tekst på skjermen:
-    # TODO: Skriv inn scoren som en tekst øverst på skjermen (bruk aunivers)
+    # # Skriver tekst på skjermen:
+    # # TODO: Skriv inn scoren som en tekst øverst på skjermen (bruk aunivers)
 
-    # Flytter og tegner spilleren:
-    player.draw(screen)
-    player.move()
-    #diamant.tegn(screen)
+    # # Flytter og tegner spilleren:
+    # player.draw(screen)
+    # player.move()
+    # #diamant.tegn(screen)
 
 
     # Oppdater skjermen for å vise endringene:
