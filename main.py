@@ -11,7 +11,7 @@ screen = pg.display.set_mode(SIZE)
 # Henter inn tekst, bilder, og spilleren:
 # Merk: Kan ikke laste inn font og bilder før vi har gjort pg.init:
 #from tekst import *
-#from bilder import *
+from bilder import *
 from player import Player
 from objekter import *
 
@@ -30,7 +30,7 @@ while running:
     clock.tick(FPS)
 
     # Tegner bakgrunnsbildet:
-    screen.blit(bg_image, (0, 0))
+    screen.blit(house, (0, 0))
 
     # Skriver tekst på skjermen:
     # TODO: Skriv inn scoren som en tekst øverst på skjermen (bruk aunivers)
