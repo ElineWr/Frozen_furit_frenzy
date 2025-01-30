@@ -13,7 +13,7 @@ screen = pg.display.set_mode(SIZE)
 #from tekst import *
 #from bilder import *
 #from player import Player
-#from objekter import *
+from objekter import *
 
 
 player = Player(WIDTH/2+5, 260)
