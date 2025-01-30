@@ -16,7 +16,7 @@ from player import Player
 from objekter import *
 
 
-# player = Player(WIDTH/2+5, 260)
+player = Player(x = 100, y = 100, dy = 0, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
 
 
 running = True
