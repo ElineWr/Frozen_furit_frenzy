@@ -8,4 +8,4 @@ class Player(Object):
         super().__init__(x, y, image)
         self.dy = dy
         self.money = money
-        self.carryingFood = False
+        self.carryingFood = carryingFood
