@@ -1,6 +1,6 @@
 # Frozen_furit_frenzy
-# Shara og Eline
+# Sarah og Eline
 
 """
-Spill om å hente indigirenser ute i det arktiske landskap
+Spill om å hente ingredienser ute i det arktiske landskap
 """
