@@ -18,6 +18,15 @@ from objekter import *
 
 player = Player(x = 700, y = 220, dy = 1, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
 
+def get_image(sheet, width_sprite, height_sprite):
+    image = pg.Surface((width_sprite, height_sprite)).convert_alpha()
+    image.blit(sheet, (0, 0), (0, 0, width_sprite, height_sprite))
+    return image
+
+frame_0 = get_image(victor, 80, 120)
+
+    
+
 
 running = True
 while running:
@@ -31,6 +40,8 @@ while running:
 
     # Tegner bakgrunnsbildet:
     screen.blit(house, (0, 0))
+
+    screen.blit(frame_0, (0, 0))
 
     # # Skriver tekst på skjermen:
     # # TODO: Skriv inn scoren som en tekst øverst på skjermen (bruk aunivers)
