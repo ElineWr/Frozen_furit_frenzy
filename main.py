@@ -18,12 +18,20 @@ from objekter import *
 
 player = Player(x = 700, y = 220, dy = 1, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
 
-def get_image(sheet, width_sprite, height_sprite):
+def get_image(sheet, frame, width_sprite, height_sprite, scale, color):
     image = pg.Surface((width_sprite, height_sprite)).convert_alpha()
-    image.blit(sheet, (0, 0), (0, 0, width_sprite, height_sprite))
+    image.blit(sheet, (0, 0), ((frame * width_sprite), 0, width_sprite, height_sprite))
+    image = pg.transform.scale(image, (width_sprite * scale, height_sprite * scale))
+    image.set_colorkey(color)
+
     return image
 
-frame_0 = get_image(victor, 80, 120)
+frame_0 = get_image(victor, frame = 0,  width_sprite = 90, height_sprite = 115, scale = 1, color = BLACK)
+frame_1 = get_image(victor, frame = 1,  width_sprite = 90, height_sprite = 115, scale = 1, color = BLACK)
+frame_2 = get_image(victor, frame = 2,  width_sprite = 90, height_sprite = 115, scale = 1, color = BLACK)
+frame_3 = get_image(victor, frame = 3,  width_sprite = 90, height_sprite = 115, scale = 1, color = BLACK)
+frame_4 = get_image(victor, frame = 4,  width_sprite = 90, height_sprite = 115, scale = 1, color = BLACK)
+frame_5 = get_image(victor, frame = 5,  width_sprite = 90, height_sprite = 115, scale = 1, color = BLACK)
 
     
 
@@ -47,8 +55,8 @@ while running:
     # # TODO: Skriv inn scoren som en tekst øverst på skjermen (bruk aunivers)
 
     # # Flytter og tegner spilleren:
-    player.draw(screen)
-    player.move()
+    #player.draw(screen)
+    #player.move()
     # #diamant.tegn(screen)
 
 

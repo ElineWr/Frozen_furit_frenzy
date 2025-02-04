@@ -12,5 +12,5 @@ camp = pg.transform.scale(camp, SIZE)
 cave = pg.transform.scale(cave, SIZE)
 coast = pg.transform.scale(coast, SIZE)
 
-victor = pg.image.load("assets/walking_sprites.jpeg").convert_alpha()
-#victor = pg.transform.scale(victor, (150, 150))
+victor = pg.image.load("assets/victor_sprites-removebg-preview.png").convert_alpha()
+victor = pg.transform.scale(victor, (541, 115))
