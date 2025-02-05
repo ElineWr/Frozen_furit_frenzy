@@ -32,13 +32,13 @@ while running:
     # Tegner bakgrunnsbildet:
     screen.blit(house, (0, 0))
 
-    # # Skriver tekst på skjermen:
-    # # TODO: Skriv inn scoren som en tekst øverst på skjermen (bruk aunivers)
+    # Skriver tekst på skjermen:
+    # TODO: Skriv inn scoren som en tekst øverst på skjermen (bruk aunivers)
 
-    # # Flytter og tegner spilleren:
+    # Flytter og tegner spilleren:
     player.draw(screen)
     player.move()
-    # #diamant.tegn(screen)
+
     
     """
     Logikk for bytte bakgrunnsbilde med karakterens koordinat
