@@ -39,6 +39,24 @@ while running:
     player.draw(screen)
     player.move()
     # #diamant.tegn(screen)
+    
+    """
+    Logikk for bytte bakgrunnsbilde med karakterens koordinat
+    
+    if self.image == house and self.x == helt til høyre: 
+        self.image == nytt bilde
+        if self.image == det riktige bildet:  
+        vise tilsvarende frukt og tang
+        
+        gi spilleren en ny posisjon som stemmer med brettet
+            - går man ut av huset kan man ikke ende opp i vannet, man må flytte Victor så han er utenfor døren
+            - men ikke så nærme at man blir stuck i en evig loop av inne og ute
+            - reversere posisjonen? 
+        
+    
+    passe på at visse ting som bær og bjørn skal vises med riktig bakgrunnsbilde
+    Sjekke om det finnes måter å animere bytte mellom bilder så det blir smoothere
+    """
 
 
     # Oppdater skjermen for å vise endringene:
