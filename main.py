@@ -3,6 +3,7 @@ from constants import *
 from random import randint
 
 
+
 # Start opp PyGame:
 pg.init()
 clock = pg.time.Clock()
@@ -30,7 +31,10 @@ while running:
     clock.tick(FPS)
 
     # Tegner bakgrunnsbildet:
+
     screen.blit(house, (0, 0))
+   
+   
 
     # Skriver tekst på skjermen:
     # TODO: Skriv inn scoren som en tekst øverst på skjermen (bruk aunivers)
