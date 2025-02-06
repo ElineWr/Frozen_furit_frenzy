@@ -1,11 +1,12 @@
 import pygame as pg
-from constants import *
-from random import randint
 
 
 
 # Start opp PyGame:
 pg.init()
+
+from constants import *
+
 clock = pg.time.Clock()
 screen = pg.display.set_mode(SIZE)
 
@@ -13,8 +14,11 @@ screen = pg.display.set_mode(SIZE)
 # Merk: Kan ikke laste inn font og bilder før vi har gjort pg.init:
 #from tekst import *
 from bilder import *
-from player import Player
+from player import *
 from objekter import *
+from functions import *
+
+
 
 
 player = Player(x = 700, y = 220, dy = 1, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
@@ -32,8 +36,19 @@ while running:
 
     # Tegner bakgrunnsbildet:
 
-    screen.blit(house, (0, 0))
-   
+    screen.blit(background[0], (0, 0))
+    if player.x >= WIDTH - player.width:  # Høyre kant
+        change_background(player)
+        player.x = 10  # Flytt spilleren til venstre side
+    elif player.x <= 0:  # Venstre kant
+        change_background(player)
+        player.x = WIDTH - player.width - 10  # Flytt spilleren til høyre side
+    elif player.y <= 0: 
+        change_background(player)
+        player.y = HEIGHT - player.height - 10  # Flytt spilleren til høyre side
+    elif player.y >= HEIGHT - player.height:
+        change_background(player)
+        player.y = 0  # Flytt spilleren til høyre side
    
 
     # Skriver tekst på skjermen:

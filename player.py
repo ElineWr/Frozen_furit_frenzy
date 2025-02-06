@@ -5,6 +5,7 @@ from pygame.locals import (K_UP, K_DOWN, K_LEFT, K_RIGHT)
 from bilder import *
 from player import*
 
+
 class Player(Object):
 
     def __init__(self, x, y, dy, image, money, carryingFood):
@@ -22,9 +23,9 @@ class Player(Object):
         
         keys_pressed = pg.key.get_pressed()
         if keys_pressed[K_LEFT]:
-            self.x = max(self.x - PLAYER_SPEED, self.width)  # Hindrer at x blir mindre enn self.width
+            self.x = max(self.x - PLAYER_SPEED, 0)  # Hindrer at x blir mindre enn self.width
         if keys_pressed[K_RIGHT]:
-            self.x = min(self.x + PLAYER_SPEED, WIDTH - self.width)  # Hindrer at x går over WIDTH - self.width
+            self.x = min(self.x + PLAYER_SPEED, WIDTH - (self.width)/2)  # Hindrer at x går over WIDTH - self.width
         if keys_pressed[K_UP]:
             self.y = max(self.y - PLAYER_SPEED, 0)  # Hindrer at y blir negativ
         if keys_pressed[K_DOWN]:
@@ -45,3 +46,4 @@ class Player(Object):
 
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y))
+        
