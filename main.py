@@ -39,16 +39,13 @@ while running:
     screen.blit(background[0], (0, 0))
     if player.x >= WIDTH - player.width:  # Høyre kant
         change_background(player)
-        player.x = 10  # Flytt spilleren til venstre side
     elif player.x <= 0:  # Venstre kant
         change_background(player)
-        player.x = WIDTH - player.width - 10  # Flytt spilleren til høyre side
     elif player.y <= 0: 
         change_background(player)
-        player.y = HEIGHT - player.height - 10  # Flytt spilleren til høyre side
     elif player.y >= HEIGHT - player.height:
         change_background(player)
-        player.y = 0  # Flytt spilleren til høyre side
+      
    
 
     # Skriver tekst på skjermen:
