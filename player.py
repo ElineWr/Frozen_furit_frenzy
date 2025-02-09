@@ -1,8 +1,10 @@
 
 from objekter import Object
-from constants import PLAYER_SPEED, WIDTH, HEIGHT
+from constants import PLAYER_SPEED, WIDTH, HEIGHT, BLACK
 from pygame.locals import (K_UP, K_DOWN, K_LEFT, K_RIGHT)
 from bilder import *
+
+sheet_type = victor
 
 class SpriteSheet():
     def __init__(self, image):
@@ -34,15 +36,43 @@ class Player(Object):
         if keys_pressed[K_LEFT] and self.x > 0:
             self.x -= PLAYER_SPEED
             self.image = victor
+
         if keys_pressed[K_RIGHT] and self.x < WIDTH:
             self.x += PLAYER_SPEED
-        if keys_pressed[K_UP] and self.y > 0:
+
+        if keys_pressed[K_UP] and self.y > 0 and handling < len(animasjons_liste) - 1:
             self.y -= PLAYER_SPEED
             self.image = victor
-        if keys_pressed[K_DOWN] and self.y < HEIGHT:
+            handling += 1
+            fram = 0
+            sheet_type == victor_opp
+
+        if keys_pressed[K_DOWN] and self.y < HEIGHT and handling > 0:
             self.y += PLAYER_SPEED
             self.image = victor
+            handling -= 1
+            frame = 0
+            if sheet_type == victor_opp:
+                sheet_type = victor
 
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y))
+
+sprite_sheet = SpriteSheet(sheet_type)
+
+animasjons_liste = []
+animasjon_steps = [6, 3]   # !
+handling = 1
+siste_oppdadering = pg.time.get_ticks()
+animasjon_cooldown = 500
+frame = 0
+steps_teller = 0
+
+for animasjons in animasjon_steps: # !
+    midlertidig_bilde_liste = [] 
+    for _ in range(animasjons):
+        midlertidig_bilde_liste.append(sprite_sheet.get_image(steps_teller, 40, 75, 1.5, BLACK))
+        steps_teller += 1
+    animasjons_liste.append(midlertidig_bilde_liste)
+
 
