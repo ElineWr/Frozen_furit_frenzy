@@ -3,7 +3,7 @@ from objekter import Object
 from constants import PLAYER_SPEED, WIDTH, HEIGHT, BLACK
 from pygame.locals import (K_UP, K_DOWN, K_LEFT, K_RIGHT)
 from bilder import *
-from main import *
+#from main import *
 
 animasjons_liste = []
 steps_teller = 0
@@ -38,6 +38,9 @@ class Player(Object):
         self.sheet_type = victor  # Initial sprite sheet
         self.last_update_time = pg.time.get_ticks()  # Time of last frame update
         self.animation_cooldown = 300 
+
+        def beat(self, x, y, carryingFood):
+            pass
 
     def move(self):
         keys_pressed = pg.key.get_pressed()
@@ -95,6 +98,13 @@ class Player(Object):
 
 sprite_sheet = SpriteSheet(sheet_type)
 
+animasjons_liste = []
+animasjon_steps = [6, 3]   # !
+handling = 1
+siste_oppdadering = pg.time.get_ticks()
+animasjon_cooldown = 1000
+frame = 0
+steps_teller = 0
 
 for animasjons in animasjon_steps: # !
     midlertidig_bilde_liste = [] 
