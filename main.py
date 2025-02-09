@@ -16,8 +16,8 @@ from player import *
 from objekter import *
 
 
-player = Player(x = 700, y = 220, dy = 1, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
 
+player = Player(x = 700, y = 220, dy = 1, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
 
 
 # lager animasjons listen
@@ -34,6 +34,13 @@ player = Player(x = 700, y = 220, dy = 1, image = victor, money = 0, carryingFoo
  """
 
 
+
+"""
+handling = 1
+siste_oppdadering = pg.time.get_ticks()
+animasjon_cooldown = 500
+frame = 0
+"""
 
 running = True
 while running:
@@ -80,11 +87,13 @@ while running:
     # # Flytter og tegner spilleren:
     player.draw(screen)
 
+
     keys_pressed = pg.key.get_pressed()
     if not any(keys_pressed):  # If no keys are pressed
             frame = 0
     else:
         player.move()
+
     # #diamant.tegn(screen)
 
 
