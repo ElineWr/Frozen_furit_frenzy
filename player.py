@@ -6,6 +6,7 @@ from bilder import *
 
 sheet_type = victor
 
+
 class SpriteSheet():
     def __init__(self, image):
         self.sheet = image
@@ -27,36 +28,65 @@ class Player(Object):
         self.dy = dy
         self.money = money
         self.carryingFood = carryingFood
-
-    def beat(self, x, y, carryingFood):
-        pass
+        self.handling = 1  # Initial handling (state)
+        self.frame = 0
+        self.sheet_type = victor  # Initial sprite sheet
+        self.last_update_time = pg.time.get_ticks()  # Time of last frame update
+        self.animation_cooldown = 300 
 
     def move(self):
         keys_pressed = pg.key.get_pressed()
+
+        # Handling the LEFT 
         if keys_pressed[K_LEFT] and self.x > 0:
             self.x -= PLAYER_SPEED
-            self.image = victor
+            self.handling = 0
+            #self.frame = 0
+            self.sheet_type = victor_left
 
+        # Handling the RIGHT 
         if keys_pressed[K_RIGHT] and self.x < WIDTH:
             self.x += PLAYER_SPEED
+            self.handling = 0  # Set handling to the right animation
+            #self.frame = 0  # Reset to the first frame of the right animation
+            self.sheet_type = victor  # Change to the sprite sheet for right
 
-        if keys_pressed[K_UP] and self.y > 0 and handling < len(animasjons_liste) - 1:
+        # Handling UP 
+        if keys_pressed[K_UP] and self.y > 0: #and self.handling < len(animasjons_liste) - 1:
             self.y -= PLAYER_SPEED
-            self.image = victor
-            handling += 1
-            fram = 0
-            sheet_type == victor_opp
+            self.handling = 1  # Moving up, set to up animation
+            #self.frame = 0  # Reset to first frame of the up animation
+            self.sheet_type = victor_opp  # Change to the sprite sheet for up
 
-        if keys_pressed[K_DOWN] and self.y < HEIGHT and handling > 0:
+        # Handling DOWN 
+        if keys_pressed[K_DOWN] and self.y < HEIGHT and self.handling >= 0:
             self.y += PLAYER_SPEED
-            self.image = victor
-            handling -= 1
-            frame = 0
-            if sheet_type == victor_opp:
-                sheet_type = victor
+            self.handling = 0 
+            #self.frame = 0 
+            if self.sheet_type == victor_opp:
+                self.sheet_type = victor  
+
+        # Frame update based on animation cooldown
+        current_time = pg.time.get_ticks()
+        if current_time - self.last_update_time >= self.animation_cooldown:
+            self.frame += 1
+            self.last_update_time = current_time  # Update the last frame update time
+            if self.frame >= len(animasjons_liste[self.handling]):  # Loop the frames
+                self.frame = 0
 
     def draw(self, screen):
-        screen.blit(self.image, (self.x, self.y))
+    # Sjekk om handlingen er gyldig
+        if 0 <= self.handling < len(animasjons_liste):
+        # Sjekk om frame er gyldig
+            if len(animasjons_liste[self.handling]) > 0:
+                self.frame = self.frame % len(animasjons_liste[self.handling])  # Sørg for at frame er gyldig
+                screen.blit(animasjons_liste[self.handling][self.frame], (self.x, self.y))
+            else:
+                print(f"Ugyldig animasjonsliste for handling {self.handling}")
+        else:
+            print(f"Ugyldig handling: {self.handling}")
+
+
 
 sprite_sheet = SpriteSheet(sheet_type)
 
@@ -64,7 +94,7 @@ animasjons_liste = []
 animasjon_steps = [6, 3]   # !
 handling = 1
 siste_oppdadering = pg.time.get_ticks()
-animasjon_cooldown = 500
+animasjon_cooldown = 1000
 frame = 0
 steps_teller = 0
 

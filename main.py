@@ -58,7 +58,7 @@ while running:
         if frame >= len(animasjons_liste[handling]):
             frame = 0
 
-    screen.blit(animasjons_liste[handling][frame], (0, 0))
+    
 
 
 
@@ -78,8 +78,13 @@ while running:
     # # TODO: Skriv inn scoren som en tekst øverst på skjermen (bruk aunivers)
 
     # # Flytter og tegner spilleren:
-    #player.draw(screen)
-    #player.move()
+    player.draw(screen)
+
+    keys_pressed = pg.key.get_pressed()
+    if not any(keys_pressed):  # If no keys are pressed
+            frame = 0
+    else:
+        player.move()
     # #diamant.tegn(screen)
 
 
