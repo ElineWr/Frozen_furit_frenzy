@@ -39,7 +39,7 @@ class Player(Object):
         self.height = self.image.get_height()
         self.width = self.image.get_width()
 
-        def beat(self, x, y, carryingFood):
+    def beat(self, x, y, carryingFood):
             pass
 
     def move(self):
