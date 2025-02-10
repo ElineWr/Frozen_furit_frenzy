@@ -24,6 +24,28 @@ from functions import *
 player = Player(x = 700, y = 220, dy = 1, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
 
 
+# lager animasjons listen
+
+
+
+"""
+    frame_0 = sprite_sheet.get_image( frame = 0,  width_sprite = 90, height_sprite = 115, scale = 1, color = BLACK)
+    frame_1 = sprite_sheet.get_image( frame = 1,  width_sprite = 90, height_sprite = 115, scale = 1, color = BLACK)
+    frame_2 = sprite_sheet.get_image( frame = 2,  width_sprite = 90, height_sprite = 115, scale = 1, color = BLACK)
+    frame_3 = sprite_sheet.get_image( frame = 3,  width_sprite = 90, height_sprite = 115, scale = 1, color = BLACK)
+    frame_4 = sprite_sheet.get_image( frame = 4,  width_sprite = 90, height_sprite = 115, scale = 1, color = BLACK)
+    frame_5 = sprite_sheet.get_image( frame = 5,  width_sprite = 90, height_sprite = 115, scale = 1, color = BLACK)
+ """
+
+
+
+"""
+handling = 1
+siste_oppdadering = pg.time.get_ticks()
+animasjon_cooldown = 500
+frame = 0
+"""
+
 running = True
 while running:
 
@@ -31,6 +53,8 @@ while running:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             running = False
+        
+                
 
     clock.tick(FPS)
 
@@ -53,26 +77,15 @@ while running:
 
     # Flytter og tegner spilleren:
     player.draw(screen)
-    player.move()
 
-    
-    """
-    Logikk for bytte bakgrunnsbilde med karakterens koordinat
-    
-    if self.image == house and self.x == helt til høyre: 
-        self.image == nytt bilde
-        if self.image == det riktige bildet:  
-        vise tilsvarende frukt og tang
-        
-        gi spilleren en ny posisjon som stemmer med brettet
-            - går man ut av huset kan man ikke ende opp i vannet, man må flytte Victor så han er utenfor døren
-            - men ikke så nærme at man blir stuck i en evig loop av inne og ute
-            - reversere posisjonen? 
-        
-    
-    passe på at visse ting som bær og bjørn skal vises med riktig bakgrunnsbilde
-    Sjekke om det finnes måter å animere bytte mellom bilder så det blir smoothere
-    """
+
+    keys_pressed = pg.key.get_pressed()
+    if not any(keys_pressed):  # If no keys are pressed
+            frame = 0
+    else:
+        player.move()
+
+    # #diamant.tegn(screen)
 
 
     # Oppdater skjermen for å vise endringene:
