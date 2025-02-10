@@ -1,10 +1,12 @@
 import pygame as pg
-from constants import *
-from random import randint
+
 
 
 # Start opp PyGame:
 pg.init()
+
+from constants import *
+
 clock = pg.time.Clock()
 screen = pg.display.set_mode(SIZE)
 
@@ -14,6 +16,8 @@ screen = pg.display.set_mode(SIZE)
 from bilder import *
 from player import *
 from objekter import *
+from functions import *
+
 
 
 
@@ -55,37 +59,23 @@ while running:
     clock.tick(FPS)
 
     # Tegner bakgrunnsbildet:
-    screen.blit(house, (0, 0))
 
-    # Oppdader animasjonen
-    """
-    naatid = pg.time.get_ticks()
-    if naatid - siste_oppdadering >= animasjon_cooldown:
-        frame += 1
-        siste_oppdadering = naatid
-        if frame >= len(animasjons_liste[handling]):
-            frame = 0
+    screen.blit(background[0], (0, 0))
+    if player.x >= WIDTH - player.width:  # Høyre kant
+        change_background(player)
+    elif player.x <= 0:  # Venstre kant
+        change_background(player)
+    elif player.y <= 0: 
+        change_background(player)
+    elif player.y >= HEIGHT - player.height:
+        change_background(player)
+      
+   
 
-    """
+    # Skriver tekst på skjermen:
+    # TODO: Skriv inn scoren som en tekst øverst på skjermen (bruk aunivers)
 
-
-
-    """
-    for x in range(animasjon_steps):
-        screen.blit(animasjons_liste[x], (x*72, 0))
-    """
-    """
-    screen.blit(frame_0, (0, 0))
-    screen.blit(frame_1, (100, 0))
-    screen.blit(frame_2, (200, 0))
-    screen.blit(frame_3, (300, 0))
-    screen.blit(frame_4, (400, 0))
-    """
-
-    # # Skriver tekst på skjermen:
-    # # TODO: Skriv inn scoren som en tekst øverst på skjermen (bruk aunivers)
-
-    # # Flytter og tegner spilleren:
+    # Flytter og tegner spilleren:
     player.draw(screen)
 
 

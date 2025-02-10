@@ -36,12 +36,24 @@ class Player(Object):
         self.last_update_time = pg.time.get_ticks()  # Time of last frame update
         self.animation_cooldown = 100 
         self.flipped = False
+        self.height = self.image.get_height()
+        self.width = self.image.get_width()
 
         def beat(self, x, y, carryingFood):
             pass
 
     def move(self):
+        
         keys_pressed = pg.key.get_pressed()
+
+        if keys_pressed[K_LEFT]:
+            self.x = max(self.x - PLAYER_SPEED, 0)  # Hindrer at x blir mindre enn self.width
+        if keys_pressed[K_RIGHT]:
+            self.x = min(self.x + PLAYER_SPEED, WIDTH - (self.width)/2)  # Hindrer at x går over WIDTH - self.width
+        if keys_pressed[K_UP]:
+            self.y = max(self.y - PLAYER_SPEED, 0)  # Hindrer at y blir negativ
+        if keys_pressed[K_DOWN]:
+            self.y = min(self.y + PLAYER_SPEED, HEIGHT - self.height)  # Hindrer at y går over HEIGHT - self.height
 
         # Handling the LEFT 
         if keys_pressed[K_LEFT] and self.x > 0:
