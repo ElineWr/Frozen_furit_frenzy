@@ -93,20 +93,3 @@ while running:
 
 # Brukeren har avsluttet programmet, game-loopen er ferdig. Avslutt pygame:
 pg.quit()
-
-"""
-Ting å gjøre: 
-Begrense hvor han går på de ulike brettene
-    - egen max grense på hus og strand osv.  
-Justere fart
-Begynne å legge inn bær
-    - lage logikk for de ulike bærene og posisjon
-    - gi background som en variable i klassen 
-Lage display av oppgave/oppskrift på hva man skal finne
-Inventory av det man bærer
-Holde frukt når man kommer nærme, knapp for plukke bær
-
-
-Isbjørn - mindre viktig
-
-"""
