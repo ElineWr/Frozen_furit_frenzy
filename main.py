@@ -58,6 +58,7 @@ while running:
     screen.blit(house, (0, 0))
 
     # Oppdader animasjonen
+    """
     naatid = pg.time.get_ticks()
     if naatid - siste_oppdadering >= animasjon_cooldown:
         frame += 1
@@ -65,7 +66,7 @@ while running:
         if frame >= len(animasjons_liste[handling]):
             frame = 0
 
-    
+    """
 
 
 

@@ -5,10 +5,7 @@ from pygame.locals import (K_UP, K_DOWN, K_LEFT, K_RIGHT)
 from bilder import *
 #from main import *
 
-animasjons_liste = []
-steps_teller = 0
-animasjon_steps = [6, 3]   # !
-sheet_type = victor
+
 
 
 
@@ -37,7 +34,8 @@ class Player(Object):
         self.frame = 0
         self.sheet_type = victor  # Initial sprite sheet
         self.last_update_time = pg.time.get_ticks()  # Time of last frame update
-        self.animation_cooldown = 300 
+        self.animation_cooldown = 100 
+        self.flipped = False
 
         def beat(self, x, y, carryingFood):
             pass
@@ -50,14 +48,17 @@ class Player(Object):
             self.x -= PLAYER_SPEED
             self.handling = 0
             #self.frame = 0
-            self.sheet_type = victor_left
+            #victor_left = pg.transform.flip(victor, True, False)
+            #self.sheet_type = victor_left
+            self.flipped = True
 
         # Handling the RIGHT 
         if keys_pressed[K_RIGHT] and self.x < WIDTH:
             self.x += PLAYER_SPEED
             self.handling = 0  # Set handling to the right animation
             #self.frame = 0  # Reset to the first frame of the right animation
-            self.sheet_type = victor  # Change to the sprite sheet for right
+            #self.sheet_type = victor  # Change to the sprite sheet for right
+            self.flipped = False
 
         # Handling UP 
         if keys_pressed[K_UP] and self.y > 0: #and self.handling < len(animasjons_liste) - 1:
@@ -88,7 +89,10 @@ class Player(Object):
         # Sjekk om frame er gyldig
             if len(animasjons_liste[self.handling]) > 0:
                 self.frame = self.frame % len(animasjons_liste[self.handling])  # Sørg for at frame er gyldig
-                screen.blit(animasjons_liste[self.handling][self.frame], (self.x, self.y))
+                img = animasjons_liste[self.handling][self.frame]
+                if self.flipped:
+                    img = pg.transform.flip(img, True, False).convert_alpha()
+                screen.blit(img, (self.x, self.y))
             else:
                 print(f"Ugyldig animasjonsliste for handling {self.handling}")
         else:
@@ -96,15 +100,21 @@ class Player(Object):
 
 
 
-sprite_sheet = SpriteSheet(sheet_type)
+
 
 animasjons_liste = []
-animasjon_steps = [6, 3]   # !
+steps_teller = 0
+animasjon_steps = [6, 3]   
+sheet_type = victor
+
+sprite_sheet = SpriteSheet(sheet_type)
+
+
+
 handling = 1
 siste_oppdadering = pg.time.get_ticks()
-animasjon_cooldown = 1000
 frame = 0
-steps_teller = 0
+
 
 for animasjons in animasjon_steps: # !
     midlertidig_bilde_liste = [] 
