@@ -49,7 +49,7 @@ class Player(Object):
         if keys_pressed[K_LEFT]:
             self.x = max(self.x - PLAYER_SPEED, 0)  # Hindrer at x blir mindre enn self.width
         if keys_pressed[K_RIGHT]:
-            self.x = min(self.x + PLAYER_SPEED, WIDTH - (self.width)/2)  # Hindrer at x går over WIDTH - self.width
+            self.x = min(self.x + PLAYER_SPEED, WIDTH - self.width )  # Hindrer at x går over WIDTH - self.width
         if keys_pressed[K_UP]:
             self.y = max(self.y - PLAYER_SPEED, 0)  # Hindrer at y blir negativ
         if keys_pressed[K_DOWN]:
