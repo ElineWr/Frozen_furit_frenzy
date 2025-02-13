@@ -21,7 +21,7 @@ from functions import *
 
 
 
-player = Player(x = 700, y = 220, dy = 1, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
+player = Player(x = WIDTH/2, y = HEIGHT/2, dy = 1, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
 
 
 # lager animasjons listen
@@ -48,12 +48,15 @@ frame = 0
 
 running = True
 while running:
-
-    # Sjekk om brukeren avslutter vinduet:
-    for event in pg.event.get():
-        if event.type == pg.QUIT:
-            running = False
-        
+    try:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                running = False
+            elif event.type == pg.KEYDOWN:
+                print(f"Key pressed: {event.key}")  # Legg til logging for tastetrykk
+    except Exception as e:
+        print(f"Error: {e}")
+        running = False
                 
 
     clock.tick(FPS)
@@ -63,6 +66,7 @@ while running:
     screen.blit(background[0], (0, 0))
     if player.x >= WIDTH - player.width:  # Høyre kant
         change_background(player)
+        print(player.x)
     elif player.x <= 0:  # Venstre kant
         change_background(player)
     elif player.y <= 0: 
@@ -85,6 +89,7 @@ while running:
     else:
         player.move()
 
+    print(player.width)
     # #diamant.tegn(screen)
 
 

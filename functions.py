@@ -1,10 +1,23 @@
 
 from bilder import * 
 from constants import * 
+from grid import house_grid, coast_grid, camp_grid, cave_grid
 
 backgrounds = [house, coast, camp, cave]  # Liste over bakgrunnsbilder
 current_background_index = 0  # Start med house
 background = [backgrounds[current_background_index]]
+
+
+def get_current_grid(current_background_index):
+    # Returner riktig grid basert på den nåværende bakgrunnen
+    if current_background_index == 0:
+        return house_grid
+    elif current_background_index == 1:
+        return coast_grid
+    elif current_background_index == 2:
+        return camp_grid
+    elif current_background_index == 3:
+        return cave_grid
 
 def change_background(player):
     global current_background_index  
@@ -18,7 +31,7 @@ def change_background(player):
     # Fra coast tilbake til house 
     elif current_background_index == 1 and player.x <= 0:  # Fra coast tilbake til house
         current_background_index = 0
-        player.x = WIDTH - player.width - 10
+        player.x = WIDTH - 10 - player.width
        
     # Fra coast til camp
     elif current_background_index == 1 and player.y <= 0: 
@@ -39,9 +52,15 @@ def change_background(player):
     elif current_background_index == 2 and player.y >= HEIGHT - player.height:
         current_background_index = 1
         player.y = 10
+  
+    current_grid = get_current_grid(current_background_index)
+    if current_grid.is_blocked(player.x + PLAYER_SPEED, player.y):
+        # Spilleren kan ikke bevege seg hvis det er blokkert
+        print("Blocked at new position!")
+    else:
+        # Spilleren kan flytte hvis ikke blokkert
+        player.x += PLAYER_SPEED
 
-         
-    
 
 
     background[0] = backgrounds[current_background_index]  # Oppdater bakgrunn
