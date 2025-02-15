@@ -1,7 +1,6 @@
 import pygame as pg
 
 
-
 # Start opp PyGame:
 pg.init()
 
@@ -89,7 +88,7 @@ while running:
     else:
         player.move()
 
-    print(player.width)
+
     # #diamant.tegn(screen)
 
 
