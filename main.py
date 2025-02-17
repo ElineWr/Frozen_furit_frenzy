@@ -15,47 +15,29 @@ screen = pg.display.set_mode(SIZE)
 from bilder import *
 from player import *
 from objekter import *
-from functions import *
-from square import Square, square, squares
-
+from game import Game
+from square_objects import squares, all_squares
 
 
 
 player = Player(x = WIDTH/2, y = HEIGHT/2, dy = 3, dx = 3, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
 
 
-
 # lager animasjons listen
 
 
+game = Game()
 
-"""
-    frame_0 = sprite_sheet.get_image( frame = 0,  width_sprite = 90, height_sprite = 115, scale = 1, color = BLACK)
-    frame_1 = sprite_sheet.get_image( frame = 1,  width_sprite = 90, height_sprite = 115, scale = 1, color = BLACK)
-    frame_2 = sprite_sheet.get_image( frame = 2,  width_sprite = 90, height_sprite = 115, scale = 1, color = BLACK)
-    frame_3 = sprite_sheet.get_image( frame = 3,  width_sprite = 90, height_sprite = 115, scale = 1, color = BLACK)
-    frame_4 = sprite_sheet.get_image( frame = 4,  width_sprite = 90, height_sprite = 115, scale = 1, color = BLACK)
-    frame_5 = sprite_sheet.get_image( frame = 5,  width_sprite = 90, height_sprite = 115, scale = 1, color = BLACK)
- """
-
-
-
-"""
-handling = 1
-siste_oppdadering = pg.time.get_ticks()
-animasjon_cooldown = 500
-frame = 0
-"""
 
 running = True
 while running:
     try:
         for event in pg.event.get():
-            if event.type == pg.MOUSEBUTTONDOWN: 
-                pos = pg.mouse.get_pos()
+            # if event.type == pg.MOUSEBUTTONDOWN: 
+            #     pos = pg.mouse.get_pos()
                 
-                square = Square(BLACK, pos[0], pos[1], 50, 50)
-                squares.add(square)
+            #     square = Square(BLACK, pos[0], pos[1], 50, 50)
+            #     squares.add(square)
             if event.type == pg.QUIT:
                 running = False
             # elif event.type == pg.KEYDOWN:
@@ -68,23 +50,29 @@ while running:
     clock.tick(FPS)
 
     # Tegner bakgrunnsbildet:
+    
 
-    screen.blit(background[0], (0, 0))
+    # screen.blit(background[0], (0, 0))
+    
     if player.x >= WIDTH - player.width:  # Høyre kant
-        change_background(player)
-        print(player.x)
+        game.change_background(player)
+        print(game.current_background_index)
     elif player.x <= 0:  # Venstre kant
-        change_background(player)
+        game.change_background(player)
+        print(game.current_background_index)
     elif player.y <= 0: 
-        change_background(player)
+        game.change_background(player)
+        print(game.current_background_index)
     elif player.y >= HEIGHT - player.height:
-        change_background(player)
+        game.change_background(player)
+        print(game.current_background_index)
       
    
 
     # Skriver tekst på skjermen:
     # TODO: Skriv inn scoren som en tekst øverst på skjermen (bruk aunivers)
 
+    game.draw_background(screen)
     # Flytter og tegner spilleren:
     player.draw(screen)
 
@@ -93,26 +81,14 @@ while running:
     if not any(keys_pressed):  # If no keys are pressed
             frame = 0
     else:
-        for square in squares:
-           
+        for square in squares:     
             square.detect_collision(player)
-
         player.move(squares)
+
+
+    for square in all_squares: 
+        square.tegn(screen, game)
         
-    for square in squares:
-        square.tegn(screen)
-    # #diamant.tegn(screen)
-    
-
-    # Oppdater skjermen for å vise endringene:
-
-    # squares.update()
-    
-
-    
-    print(squares)
-
-    
     pg.display.update()
 
 
