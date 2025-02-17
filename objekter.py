@@ -21,3 +21,4 @@ class Isbjorn(Object):
         super().__init__(x, y, image)
 
 
+

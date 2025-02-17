@@ -16,11 +16,13 @@ from bilder import *
 from player import *
 from objekter import *
 from functions import *
+from square import Square, square, squares
 
 
 
 
-player = Player(x = WIDTH/2, y = HEIGHT/2, dy = 1, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
+player = Player(x = WIDTH/2, y = HEIGHT/2, dy = 3, dx = 3, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
+
 
 
 # lager animasjons listen
@@ -49,10 +51,15 @@ running = True
 while running:
     try:
         for event in pg.event.get():
+            if event.type == pg.MOUSEBUTTONDOWN: 
+                pos = pg.mouse.get_pos()
+                
+                square = Square(BLACK, pos[0], pos[1], 50, 50)
+                squares.add(square)
             if event.type == pg.QUIT:
                 running = False
-            elif event.type == pg.KEYDOWN:
-                print(f"Key pressed: {event.key}")  # Legg til logging for tastetrykk
+            # elif event.type == pg.KEYDOWN:
+            #     print(f"Key pressed: {event.key}")  # Legg til logging for tastetrykk
     except Exception as e:
         print(f"Error: {e}")
         running = False
@@ -86,14 +93,28 @@ while running:
     if not any(keys_pressed):  # If no keys are pressed
             frame = 0
     else:
-        player.move()
+        for square in squares:
+           
+            square.detect_collision(player)
 
-
+        player.move(squares)
+        
+    for square in squares:
+        square.tegn(screen)
     # #diamant.tegn(screen)
-
+    
 
     # Oppdater skjermen for å vise endringene:
+
+    # squares.update()
+    
+
+    
+    print(squares)
+
+    
     pg.display.update()
+
 
 # Brukeren har avsluttet programmet, game-loopen er ferdig. Avslutt pygame:
 pg.quit()

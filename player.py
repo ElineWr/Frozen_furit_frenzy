@@ -7,8 +7,6 @@ from bilder import *
 #from main import *
 
 
-
-
 class SpriteSheet():
     def __init__(self, image):
         self.sheet = image
@@ -25,9 +23,10 @@ class SpriteSheet():
 
 class Player(Object):
 
-    def __init__(self, x, y, dy, image, money, carryingFood):
+    def __init__(self, x, y, dy, dx, image, money, carryingFood):
         super().__init__(x, y, image)
         self.dy = dy
+        self.dx = dx
         self.money = money
         self.carryingFood = carryingFood
         self.handling = 1  # Initial handling (state)
@@ -44,37 +43,58 @@ class Player(Object):
 
 
     
-    def move(self):
+    def move(self, squares):
         keys_pressed = pg.key.get_pressed()
+        self.dx, self.dy = 0, 0  # Forskyvning i posisjon
     
         if keys_pressed[K_LEFT]:
             self.x = max(self.x - PLAYER_SPEED, 0)
             self.flipped = True
             self.handling = 0  # Handling for left
+            self.dx = -PLAYER_SPEED
             # Animasjonslogikk kan settes her hvis ønskelig
 
         elif keys_pressed[K_RIGHT]:
             self.x = min(self.x + PLAYER_SPEED, WIDTH - self.width)
             self.flipped = False
             self.handling = 0  # Handling for right
+            self.dx = PLAYER_SPEED
             # Animasjonslogikk kan settes her hvis ønskelig
 
         if keys_pressed[K_UP]:
             self.y = max(self.y - PLAYER_SPEED, 0)
             self.handling = 1  # Handling for up
             self.sheet_type = victor_opp  # Opp animasjon
-
+            self.dy = -PLAYER_SPEED
+        
         elif keys_pressed[K_DOWN]:
             self.y = min(self.y + PLAYER_SPEED, HEIGHT - self.height)
             self.handling = 0  # Handling for down
+            self.dy = PLAYER_SPEED
             if self.sheet_type == victor_opp:
                 self.sheet_type = victor  # Endre til ned animasjon
+            
+        new_x = self.x + self.dx
+        new_y = self.y + self.dy  
+        
+        for square in squares:
+            if (new_x  < square.x + square.width and 
+                new_x + self.width > square.x and 
+                new_y < square.y + square.height and 
+                new_y + self.height > square.y):
+                return  # Stopp bevegelsen hvis det er kollisjon
+
+        # Oppdater posisjon hvis ingen kollisjon
+        self.x = new_x
+        self.y = new_y   
+        
         
         # Frame update based on animation cooldown
         current_time = pg.time.get_ticks()
         if current_time - self.last_update_time >= self.animation_cooldown:
             self.frame += 1
             self.last_update_time = current_time  # Update the last frame update time
+            self.dy = -PLAYER_SPEED
             if self.frame >= len(animasjons_liste[self.handling]):  # Loop the frames
                 self.frame = 0
 
