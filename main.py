@@ -56,16 +56,13 @@ while running:
     
     if player.x >= WIDTH - player.width:  # Høyre kant
         game.change_background(player)
-        print(game.current_background_index)
     elif player.x <= 0:  # Venstre kant
         game.change_background(player)
-        print(game.current_background_index)
     elif player.y <= 0: 
         game.change_background(player)
-        print(game.current_background_index)
     elif player.y >= HEIGHT - player.height:
         game.change_background(player)
-        print(game.current_background_index)
+
       
    
 

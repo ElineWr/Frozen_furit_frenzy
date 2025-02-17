@@ -1,6 +1,6 @@
 import pygame as pg
 from constants import *
-from functions import *
+# from functions import *
 from game import Game
 
 
@@ -45,7 +45,10 @@ class Square(pg.sprite.Sprite):
 
 all_squares = [
     # house 
-    Square(farge=BLACK, x=50, y=50, width=100, height=100, background=0),
+    Square(farge=BLACK, x=0, y=0, width=250, height=HEIGHT, background=0),
+    Square(farge = BLACK, x = WIDTH - 50, y = 0, width = 50, height = (HEIGHT*(4/8)), background = 0),
+    Square(farge = BLACK, x = WIDTH - 50, y = (HEIGHT*(6/8)), width = 50, height = (HEIGHT*(2/8)), background = 0),
+    # Square(farge = BLACK, x = 0, y = HEIGHT - , width = 50, height = (HEIGHT*(4/8)), background = 0),
     
     # coast
     Square(farge=RED, x=200, y=150, width=100, height=100, background=1),
