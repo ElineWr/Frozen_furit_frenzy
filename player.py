@@ -78,16 +78,27 @@ class Player(Object):
         new_y = self.y + self.dy  
         
         for square in squares:
-            if (new_x  < square.x + square.width and 
-                new_x + self.width > square.x and 
-                new_y < square.y + square.height and 
-                new_y + self.height > square.y):
-                return  # Stopp bevegelsen hvis det er kollisjon
+            
+            if (self.x + self.dx < square.x + square.width and 
+            self.x + self.dx + self.width > square.x and 
+            self.y < square.y + square.height and 
+            self.y + self.height > square.y):
+            # Kollisjon funnet
+                self.dx = 0  # Stopp bevegelse i x-retning
+                self.dy = 0  # Stopp bevegelse i y-retning
+            #backup hvor kollisjon er vanlig, men sprites ikke funker: 
+            # if (new_x  < square.x + square.width and 
+            #     new_x + self.width > square.x and 
+            #     new_y < square.y + square.height and 
+            #     new_y + self.height > square.y):
+            #     return  # Stopp bevegelsen hvis det er kollisjon
+
+            
+
 
         # Oppdater posisjon hvis ingen kollisjon
         self.x = new_x
         self.y = new_y   
-        
         
         # Frame update based on animation cooldown
         current_time = pg.time.get_ticks()

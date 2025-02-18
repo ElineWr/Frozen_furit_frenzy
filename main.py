@@ -62,12 +62,8 @@ while running:
         game.change_background(player)
     elif player.y >= HEIGHT - player.height:
         game.change_background(player)
-
-      
    
-
     # Skriver tekst på skjermen:
-    # TODO: Skriv inn scoren som en tekst øverst på skjermen (bruk aunivers)
 
     game.draw_background(screen)
     # Flytter og tegner spilleren:
@@ -78,13 +74,15 @@ while running:
     if not any(keys_pressed):  # If no keys are pressed
             frame = 0
     else:
-        for square in squares:     
-            square.detect_collision(player)
+        for square in squares:
+            if square.background == game.current_background_index:      
+                square.detect_collision(player)
         player.move(squares)
 
 
     for square in all_squares: 
         square.tegn(screen, game)
+        
         
     pg.display.update()
 
