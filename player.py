@@ -3,6 +3,7 @@ from objekter import Object
 from constants import PLAYER_SPEED, WIDTH, HEIGHT, BLACK
 from pygame.locals import (K_UP, K_DOWN, K_LEFT, K_RIGHT)
 from bilder import *
+from game import Game
 
 #from main import *
 
@@ -43,10 +44,14 @@ class Player(Object):
 
 
     
-    def move(self, squares):
+    def move(self, squares, game):
         keys_pressed = pg.key.get_pressed()
-        self.dx, self.dy = 0, 0  # Forskyvning i posisjon
-    
+
+        # Lagre den nåværende posisjonen til spilleren  
+        old_x = self.x  
+        old_y = self.y
+
+        # Beveg spilleren basert på tastetrykk  
         if keys_pressed[K_LEFT]:
             self.x = max(self.x - PLAYER_SPEED, 0)
             self.flipped = True
@@ -73,32 +78,27 @@ class Player(Object):
             self.dy = PLAYER_SPEED
             if self.sheet_type == victor_opp:
                 self.sheet_type = victor  # Endre til ned animasjon
-            
-        new_x = self.x + self.dx
-        new_y = self.y + self.dy  
-        
+        # Sjekk for kollisjon med firkanter  
         for square in squares:
+            if square.detect_collision(self, game):
+                # Hvis det oppstår en kollisjon, tilbakestill posisjonen  
+                self.x = old_x  
+                self.y = old_y  
+                break  # Ingen grunn til å sjekke flere firkanter  
+
+        # Sjekk for bakgrunnsendring etter kollisjoner er håndtert  
+        if self.x >= WIDTH - self.width:  # Høyre kant  
+            game.change_background(self)
+        elif self.x <= 0:  # Venstre kant  
+            game.change_background(self)
+        elif self.y <= 0:  # Toppkant  
+            game.change_background(self)
+        elif self.y >= HEIGHT - self.height:  # Bunnkant  
+            game.change_background(self)
             
-            if (self.x + self.dx < square.x + square.width and 
-            self.x + self.dx + self.width > square.x and 
-            self.y < square.y + square.height and 
-            self.y + self.height > square.y):
-            # Kollisjon funnet
-                self.dx = 0  # Stopp bevegelse i x-retning
-                self.dy = 0  # Stopp bevegelse i y-retning
-            #backup hvor kollisjon er vanlig, men sprites ikke funker: 
-            # if (new_x  < square.x + square.width and 
-            #     new_x + self.width > square.x and 
-            #     new_y < square.y + square.height and 
-            #     new_y + self.height > square.y):
-            #     return  # Stopp bevegelsen hvis det er kollisjon
-
-            
+    
 
 
-        # Oppdater posisjon hvis ingen kollisjon
-        self.x = new_x
-        self.y = new_y   
         
         # Frame update based on animation cooldown
         current_time = pg.time.get_ticks()
@@ -145,8 +145,6 @@ animasjon_steps = [6, 3]
 sheet_type = victor
 
 sprite_sheet = SpriteSheet(sheet_type)
-
-
 
 handling = 1
 siste_oppdadering = pg.time.get_ticks()

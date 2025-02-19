@@ -1,6 +1,5 @@
 import pygame as pg
 
-
 # Start opp PyGame:
 pg.init()
 
@@ -19,15 +18,12 @@ from game import Game
 from square_objects import squares, all_squares
 
 
-
 player = Player(x = WIDTH/2, y = HEIGHT/2, dy = 3, dx = 3, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
 
 
 # lager animasjons listen
 
-
 game = Game()
-
 
 running = True
 while running:
@@ -50,17 +46,16 @@ while running:
     clock.tick(FPS)
 
     # Tegner bakgrunnsbildet:
-    
 
     # screen.blit(background[0], (0, 0))
     
-    if player.x >= WIDTH - player.width:  # Høyre kant
+    if player.x >= WIDTH - player.width:  # Høyre kant  
         game.change_background(player)
-    elif player.x <= 0:  # Venstre kant
+    elif player.x <= 0:  # Venstre kant  
         game.change_background(player)
-    elif player.y <= 0: 
+    elif player.y <= 0:  # Toppkant  
         game.change_background(player)
-    elif player.y >= HEIGHT - player.height:
+    elif player.y >= HEIGHT - player.height:  # Bunnkant  
         game.change_background(player)
    
     # Skriver tekst på skjermen:
@@ -76,8 +71,8 @@ while running:
     else:
         for square in squares:
             if square.background == game.current_background_index:      
-                square.detect_collision(player)
-        player.move(squares)
+                square.detect_collision(player, game)
+        player.move(squares, game)
 
 
     for square in all_squares: 
