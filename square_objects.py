@@ -18,7 +18,7 @@ class Square(pg.sprite.Sprite):
     def tegn(self, screen, game):  # Legg til current_background som parameter
         pass
         # if self.background == game.current_background_index:
-        #     pg.draw.rect(screen, self.farge, (self.x, self.y, self.width, self.height))
+        #      pg.draw.rect(screen, self.farge, (self.x, self.y, self.width, self.height))
             
     # def update(self): 
     #     self.y += 5
@@ -55,7 +55,9 @@ all_squares = [
     
     # Square(farge = BLACK, x = 0, y = HEIGHT - , width = 50, height = (HEIGHT*(4/8)), background = 0),
     # coast
-    Square(farge=RED, x=0, y=0, width=WIDTH*(1/10), height=HEIGHT*(5/10), background=1),
+    Square(farge=RED, x=0, y=0, width=WIDTH*(0.5/10), height=HEIGHT*(5/10), background=1),
+    Square(farge = RED, x = 0, y = (HEIGHT*(6/8)), width = 50, height = (HEIGHT*(2/8)), background = 1),
+    
     
     # camp
     Square(farge = BLACK, x = 0, y = 0, width = WIDTH*(6/10), height= 50, background = 2),
