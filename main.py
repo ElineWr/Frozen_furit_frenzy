@@ -38,7 +38,7 @@ for x in range(food_animasjons_steps):
       food_animasjonsliste.append(blaaber_1.get_image(x, width_food = 82.66, height_food=83.66, scale=1, color=BLACK))
 
 
-´
+
 
 running = True
 while running:

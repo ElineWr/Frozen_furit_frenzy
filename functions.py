@@ -52,34 +52,33 @@ def change_background(player):
     
 
     background[0] = backgrounds[current_background_index]  # Oppdater bakgrunn
-
+        
+    #     player.x = WIDTH - player.width - 10
+    #     print("Background changed to house")
     
-        player.x = WIDTH - player.width - 10
-        print("Background changed to house")
+    # # From coast to camp
+    # elif current_background_index == 1 and player.y <= 0: 
+    #     current_background_index = 2
+    #     player.y = HEIGHT - player.height - 10
+    #     print("Background changed to camp")
     
-    # From coast to camp
-    elif current_background_index == 1 and player.y <= 0: 
-        current_background_index = 2
-        player.y = HEIGHT - player.height - 10
-        print("Background changed to camp")
+    # # From camp to cave
+    # elif current_background_index == 2 and player.y <= 0: 
+    #     current_background_index = 3
+    #     player.y = HEIGHT - player.height - 10
+    #     print("Background changed to cave")
     
-    # From camp to cave
-    elif current_background_index == 2 and player.y <= 0: 
-        current_background_index = 3
-        player.y = HEIGHT - player.height - 10
-        print("Background changed to cave")
+    # # From cave back to camp
+    # elif current_background_index == 3 and player.y >= HEIGHT - player.height:
+    #     current_background_index = 2
+    #     player.y = 10
+    #     print("Background changed to camp")
     
-    # From cave back to camp
-    elif current_background_index == 3 and player.y >= HEIGHT - player.height:
-        current_background_index = 2
-        player.y = 10
-        print("Background changed to camp")
-    
-    # From camp to coast
-    elif current_background_index == 2 and player.y >= HEIGHT - player.height:
-        current_background_index = 1
-        player.y = 10
-        print("Background changed to coast")
+    # # From camp to coast
+    # elif current_background_index == 2 and player.y >= HEIGHT - player.height:
+    #     current_background_index = 1
+    #     player.y = 10
+    #     print("Background changed to coast")
     
     # Update the background
     background[0] = backgrounds[current_background_index]  # Update background

@@ -140,7 +140,7 @@ class Player(Object):
 
 
 
-player = Player(x = 700, y = 220, dy = 1, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
+player = Player(x = 700, y = 220, dx = 1, dy = 1, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
 
 
 animasjons_liste = []
