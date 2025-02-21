@@ -8,7 +8,6 @@ from bilder import *
 
 
 
-
 class SpriteSheet():
     def __init__(self, image):
         self.sheet = image
@@ -112,7 +111,7 @@ class Player(Object):
 
 
 
-
+player = Player(x = 700, y = 220, dy = 1, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
 
 animasjons_liste = []
 steps_teller = 0
