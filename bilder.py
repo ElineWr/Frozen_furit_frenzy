@@ -20,3 +20,10 @@ victor_opp = pg.transform.scale(victor_opp, (629, 75))
 
 victor_left = pg.transform.flip(victor, True, False)
 #victor_left = pg.transform.scale(victor_left, (629, 75))
+
+blaaber = pg.image.load("assets/bluberry_hover.png").convert_alpha()
+blaaber = pg.transform.scale(blaaber, (330.66, 83.66))
+bjorneber = pg.image.load("assets/blackberry_hover.png").convert_alpha()
+appelsin = pg.image.load("assets/orange_hover.png").convert_alpha()
+bringeber = pg.image.load("assets/raspberry_hover.png").convert_alpha()
+
