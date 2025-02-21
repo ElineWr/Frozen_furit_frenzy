@@ -27,3 +27,10 @@ bjorneber = pg.image.load("assets/blackberry_hover.png").convert_alpha()
 appelsin = pg.image.load("assets/orange_hover.png").convert_alpha()
 bringeber = pg.image.load("assets/raspberry_hover.png").convert_alpha()
 
+tekst_bakgrunn = pg.image.load("assets/txt_background.png").convert_alpha()
+opt_rect = pg.image.load("assets/Options Rect.png").convert_alpha()
+play_rect = pg.image.load("assets/Play Rect.png").convert_alpha()
+quit_rect = pg.image.load("assets/Quit Rect.png").convert_alpha()
+test = pg.image.load("assets/test.webp").convert_alpha()
+
+
