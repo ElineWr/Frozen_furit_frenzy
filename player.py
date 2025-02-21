@@ -7,7 +7,6 @@ from game import Game
 
 #from main import *
 
-
 class SpriteSheet():
     def __init__(self, image):
         self.sheet = image
@@ -39,7 +38,7 @@ class Player(Object):
         self.height = self.image.get_height()
         self.width = 40 # bredden brukt til sprite
 
-        def beat(self, x, y, carryingFood):
+    def beat(self, x, y, carryingFood):
             pass
 
 
@@ -125,6 +124,7 @@ class Player(Object):
             print(f"Ugyldig handling: {self.handling}")
 
 
+
 # def draw(self, screen):
 #     if 0 <= self.handling < len(animasjons_liste):
 #         if len(animasjons_liste[self.handling]) > 0:
@@ -137,6 +137,10 @@ class Player(Object):
 #             print(f"Ugyldig animasjonsliste for handling {self.handling}")
 #     else:
 #         print(f"Ugyldig handling: {self.handling}")
+
+
+
+player = Player(x = 700, y = 220, dy = 1, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
 
 
 animasjons_liste = []
