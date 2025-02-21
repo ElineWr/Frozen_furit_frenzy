@@ -3,10 +3,9 @@ from objekter import Object
 from constants import PLAYER_SPEED, WIDTH, HEIGHT, BLACK
 from pygame.locals import (K_UP, K_DOWN, K_LEFT, K_RIGHT)
 from bilder import *
+from game import Game
+
 #from main import *
-
-
-
 
 class SpriteSheet():
     def __init__(self, image):
@@ -24,9 +23,10 @@ class SpriteSheet():
 
 class Player(Object):
 
-    def __init__(self, x, y, dy, image, money, carryingFood):
+    def __init__(self, x, y, dy, dx, image, money, carryingFood):
         super().__init__(x, y, image)
         self.dy = dy
+        self.dx = dx
         self.money = money
         self.carryingFood = carryingFood
         self.handling = 1  # Initial handling (state)
@@ -36,61 +36,75 @@ class Player(Object):
         self.animation_cooldown = 100 
         self.flipped = False
         self.height = self.image.get_height()
-        self.width = self.image.get_width()
+        self.width = 40 # bredden brukt til sprite
 
     def beat(self, x, y, carryingFood):
             pass
 
-    def move(self):
-        
+
+    
+    def move(self, squares, game):
         keys_pressed = pg.key.get_pressed()
 
+        # Lagre den nåværende posisjonen til spilleren  
+        old_x = self.x  
+        old_y = self.y
+
+        # Beveg spilleren basert på tastetrykk  
         if keys_pressed[K_LEFT]:
-            self.x = max(self.x - PLAYER_SPEED, 0)  # Hindrer at x blir mindre enn self.width
-        if keys_pressed[K_RIGHT]:
-            self.x = min(self.x + PLAYER_SPEED, WIDTH - self.width )  # Hindrer at x går over WIDTH - self.width
-        if keys_pressed[K_UP]:
-            self.y = max(self.y - PLAYER_SPEED, 0)  # Hindrer at y blir negativ
-        if keys_pressed[K_DOWN]:
-            self.y = min(self.y + PLAYER_SPEED, HEIGHT - self.height)  # Hindrer at y går over HEIGHT - self.height
-
-        # Handling the LEFT 
-        if keys_pressed[K_LEFT] and self.x > 0:
-            self.x -= PLAYER_SPEED
-            self.handling = 0
-            #self.frame = 0
-            #victor_left = pg.transform.flip(victor, True, False)
-            #self.sheet_type = victor_left
+            self.x = max(self.x - PLAYER_SPEED, 0)
             self.flipped = True
+            self.handling = 0  # Handling for left
+            self.dx = -PLAYER_SPEED
+            # Animasjonslogikk kan settes her hvis ønskelig
 
-        # Handling the RIGHT 
-        if keys_pressed[K_RIGHT] and self.x < WIDTH:
-            self.x += PLAYER_SPEED
-            self.handling = 0  # Set handling to the right animation
-            #self.frame = 0  # Reset to the first frame of the right animation
-            #self.sheet_type = victor  # Change to the sprite sheet for right
+        elif keys_pressed[K_RIGHT]:
+            self.x = min(self.x + PLAYER_SPEED, WIDTH - self.width)
             self.flipped = False
+            self.handling = 0  # Handling for right
+            self.dx = PLAYER_SPEED
+            # Animasjonslogikk kan settes her hvis ønskelig
 
-        # Handling UP 
-        if keys_pressed[K_UP] and self.y > 0: #and self.handling < len(animasjons_liste) - 1:
-            self.y -= PLAYER_SPEED
-            self.handling = 1  # Moving up, set to up animation
-            #self.frame = 0  # Reset to first frame of the up animation
-            self.sheet_type = victor_opp  # Change to the sprite sheet for up
-
-        # Handling DOWN 
-        if keys_pressed[K_DOWN] and self.y < HEIGHT and self.handling >= 0:
-            self.y += PLAYER_SPEED
-            self.handling = 0 
-            #self.frame = 0 
+        if keys_pressed[K_UP]:
+            self.y = max(self.y - PLAYER_SPEED, 0)
+            self.handling = 1  # Handling for up
+            self.sheet_type = victor_opp  # Opp animasjon
+            self.dy = -PLAYER_SPEED
+        
+        elif keys_pressed[K_DOWN]:
+            self.y = min(self.y + PLAYER_SPEED, HEIGHT - self.height)
+            self.handling = 0  # Handling for down
+            self.dy = PLAYER_SPEED
             if self.sheet_type == victor_opp:
-                self.sheet_type = victor  
+                self.sheet_type = victor  # Endre til ned animasjon
+        # Sjekk for kollisjon med firkanter  
+        for square in squares:
+            if square.detect_collision(self, game):
+                # Hvis det oppstår en kollisjon, tilbakestill posisjonen  
+                self.x = old_x  
+                self.y = old_y  
+                break  # Ingen grunn til å sjekke flere firkanter  
 
+        # Sjekk for bakgrunnsendring etter kollisjoner er håndtert  
+        if self.x >= WIDTH - self.width:  # Høyre kant  
+            game.change_background(self)
+        elif self.x <= 0:  # Venstre kant  
+            game.change_background(self)
+        elif self.y <= 0:  # Toppkant  
+            game.change_background(self)
+        elif self.y >= HEIGHT - self.height:  # Bunnkant  
+            game.change_background(self)
+            
+    
+
+
+        
         # Frame update based on animation cooldown
         current_time = pg.time.get_ticks()
         if current_time - self.last_update_time >= self.animation_cooldown:
             self.frame += 1
             self.last_update_time = current_time  # Update the last frame update time
+            self.dy = -PLAYER_SPEED
             if self.frame >= len(animasjons_liste[self.handling]):  # Loop the frames
                 self.frame = 0
 
@@ -111,7 +125,23 @@ class Player(Object):
 
 
 
+# def draw(self, screen):
+#     if 0 <= self.handling < len(animasjons_liste):
+#         if len(animasjons_liste[self.handling]) > 0:
+#             self.frame = self.frame % len(animasjons_liste[self.handling])
+#             img = animasjons_liste[self.handling][self.frame]
+#             if self.flipped:
+#                 img = pg.transform.flip(img, True, False).convert_alpha()
+#             screen.blit(img, (self.x, self.y))
+#         else:
+#             print(f"Ugyldig animasjonsliste for handling {self.handling}")
+#     else:
+#         print(f"Ugyldig handling: {self.handling}")
+
+
+
 player = Player(x = 700, y = 220, dy = 1, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
+
 
 animasjons_liste = []
 steps_teller = 0
@@ -119,8 +149,6 @@ animasjon_steps = [6, 3]
 sheet_type = victor
 
 sprite_sheet = SpriteSheet(sheet_type)
-
-
 
 handling = 1
 siste_oppdadering = pg.time.get_ticks()
