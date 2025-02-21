@@ -113,15 +113,15 @@ while running:
     #if change_background(player) == house:
             #food_x = 0
             #food_y = 0
-    if backgrounds[0] == coast:
+    if game.backgrounds == coast:
             food_x = 400
             food_y = 300
             print(f"Food position updated to coast: ({food_x}, {food_y})")
-    elif backgrounds[0] == camp:
+    elif game.backgrounds == camp:
             food_x = 400
             food_y = 300
             print(f"Food position updated to coast: ({food_x}, {food_y})")
-    elif backgrounds[0] == cave:
+    elif game.backgrounds == cave:
             food_x = 400
             food_y = 300
             print(f"Food position updated to coast: ({food_x}, {food_y})")

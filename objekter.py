@@ -1,7 +1,7 @@
-from functions import *
+# from functions import *
 from player import *
 from bilder import *
-
+from constants import *
 
 class Object:
 

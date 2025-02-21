@@ -16,9 +16,9 @@ class Square(pg.sprite.Sprite):
 
     
     def tegn(self, screen, game):  # Legg til current_background som parameter
-        # pass
-         if self.background == game.current_background_index:
-              pg.draw.rect(screen, self.farge, (self.x, self.y, self.width, self.height))
+        pass
+        #  if self.background == game.current_background_index:
+        #       pg.draw.rect(screen, self.farge, (self.x, self.y, self.width, self.height))
             
     # def update(self): 
     #     self.y += 5
