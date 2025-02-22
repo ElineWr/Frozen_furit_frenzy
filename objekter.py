@@ -46,7 +46,17 @@ class Food(pg.sprite.Sprite):
         
 
         #screen.blit(blaaber, (self.x, self.y)) 
-    
+    def draw(self, screen, player):
+
+        # plasering
+        if change_background(player) == house:
+            pass
+        elif change_background(player) == coast:
+            pass
+        elif change_background(player) == camp:
+            pass
+        elif change_background(player) == cave:
+            pass
 """   
 all_ber = [
     Food(x = 300, y = 300, image = blaaber, background = 1),
