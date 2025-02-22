@@ -10,20 +10,19 @@ from button import Button
 from bilder import *
 from player import *
 from objekter import *
-from game import Game, food_x, food_y  
-from square_objects import squares, all_squares, Square
+from game import Game
+from square_objects import squares
 
 # Start opp PyGame:
 
 
 
-
 game = Game()  # Opprett et Game-objekt før du starter hovedmenyen
 
-def get_font(size):  # Returner font i ønsket størrelse  
+def get_font(size):  
     return pg.font.Font("assets/font.ttf", size)
 
-# Opprett spilleren  
+ 
 player = Player(x=WIDTH/2, y=HEIGHT/2, dy=3, dx=3, image=victor, money=0, carryingFood=False)
 
 # Initialiser matvariabler  
@@ -50,8 +49,8 @@ def play(game):
             screen.blit(appelsin, (200, 100))
             screen.blit(blaaber, (300, 400))
             
-    global food_last_update_time  # Fortell Python at vi vil bruke den globale variabelen  
-    global food_frame  # Hvis du også bruker food_frame, legg til dette  
+    global food_last_update_time    
+    global food_frame 
     running = True
     
     while running:
@@ -100,15 +99,7 @@ def play(game):
             food_frame = (food_frame + 1) % food_animasjons_steps  
             food_last_update_time = current_time
 
-        # Oppdater matposisjon basert på bakgrunn  
-        # if game.current_background_index == 0:
-        #     food_x = 0  
-        #     food_y = 0  
-        # elif game.current_background_index in [1, 2, 3]:
-        #     food_x = 400  
-        #     food_y = 300
 
-        # Tegn mat basert på bakgrunn 
       
         tegne(game.current_background_index)
         
@@ -117,25 +108,20 @@ def play(game):
             for berry in all_ber:  # Tegn alle bær  
                 if player.carryingFood == berry:
                     berry.background = current_background_index
-                    berry.x = player.x + 10  # Plasser bæret nær spilleren  
+                    berry.x = player.x + 10 
                     berry.y = player.y + 10 
 
                 if berry.background == current_background_index: # and not berry.is_collected:
                     screen.blit(berry.image, (berry.x, berry.y))
 
-        # Oppdater skjermen  
+ 
         pg.display.update()
         
     play(game)
 
-# Avslutt Pygame  
-
-    # Brukeren har avsluttet programmet, game-loopen er ferdig. Avslutt pygame:
-    # Men når denne er blokkert så kan man bruke avsluttknappen til bildet som en tilbake til meny-knapp
-    #  pg.quit()
+    pg.quit()
 
 def game_info(game):
-    current_background_index = game.current_background_index  # Behold den nåværende bakgrunnen
 
     while True:
         INFO_MOUSE_POS = pg.mouse.get_pos()
@@ -181,16 +167,15 @@ def game_info(game):
                 pg.quit()
                 return
             if event.type == pg.KEYDOWN:
-                if event.key == pg.K_ESCAPE:  # Bruk escape-tasten for å gå tilbake  
-                    return  # Gå tilbake til den forrige skjermen
-
+                if event.key == pg.K_ESCAPE: 
+                    return 
         pg.display.update()
         
 def show_inventory(player):
-    inventory_open = True  # Variabel for å sjekke om inventaret er åpent
+    inventory_open = True 
 
-    while inventory_open:  # Fortsett å vise inventaret til det lukkes  
-        # Fyll skjermen med bakgrunnsfarge  
+    while inventory_open:  
+        
         screen.blit(offwhite_bg, ((WIDTH - 803)/2, (HEIGHT - 410)/2))
         
         # Tegn overskrifter  
@@ -203,10 +188,10 @@ def show_inventory(player):
 
 
         tasks = {
-        "blaaber": 1,      # Spilleren skal samle 5 blåbær  
-        "bjorneber": 1,    # Spilleren skal samle 3 bjørnebær  
-        "bringebær": 1,     # Spilleren skal samle 2 bringebær  
-        "appelsin": 1      # Spilleren skal samle 4 appelsiner  
+        "blaaber": 1,      
+        "bjorneber": 1,    
+        "bringebær": 1,    
+        "appelsin": 1     
     }
         y_offset = 300  # Startposisjon for oppgavene  
         for food_name, required_count in tasks.items():
@@ -229,9 +214,9 @@ def show_inventory(player):
             count_text = get_font(30).render(f"x {required_count}", True, DARK_BLUE)
             screen.blit(count_text, (WIDTH * (0.7/4) + 80, y_offset))  # Plasser antallet til høyre for bæret
 
-            y_offset += 50  # Juster avstanden mellom radene 
-        # Tegn bærene spilleren har samlet med antall  
-        y_offset = 300  # Startposisjon for bærene og antall  
+            y_offset += 50 
+       
+        y_offset = 300 
         for food_name, count in player.food_count.items():
             food_image = None  
             if food_name == "blaaber":
@@ -245,26 +230,26 @@ def show_inventory(player):
             
             # Tegn bilde av bæret  
             if food_image:
-                food_surface = pg.transform.scale(food_image, (70, 70))  # Skaler bæret for visning  
-                screen.blit(food_surface, (WIDTH*(2.2/4), y_offset - 20))  # Plasser bæret
+                food_surface = pg.transform.scale(food_image, (70, 70)) 
+                screen.blit(food_surface, (WIDTH*(2.2/4), y_offset - 20))  
 
             # Tegn antallet ved siden av  
             count_text = get_font(30).render(f"x {count}", True, DARK_BLUE)
-            screen.blit(count_text, (WIDTH*(2.7/4), y_offset))  # Plasser antallet til høyre for bæret
+            screen.blit(count_text, (WIDTH*(2.7/4), y_offset)) 
 
-            y_offset += 50  # Juster avstanden mellom radene
+            y_offset += 50 
 
 
         
         # Håndter hendelser  
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                pg.quit()  # Avslutt programmet hvis brukeren lukker vinduet  
+                pg.quit() 
             if event.type == pg.KEYDOWN:
-                if event.key == pg.K_ESCAPE:  # Bruk escape-tasten for å gå tilbake  
-                    inventory_open = False  # Lukk inventaret
+                if event.key == pg.K_ESCAPE: 
+                    inventory_open = False 
 
-        pg.display.update()  # Oppdater skjermen
+        pg.display.update()  
     
 
         
@@ -306,7 +291,7 @@ def main_menu(game):
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
-                # pg.sys.exit()
+
             if event.type == pg.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
                     print("Play button pressed!")  # Debug
@@ -315,7 +300,7 @@ def main_menu(game):
                     game_info(game)
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pg.quit()
-                    # pg.sys.exit()
+                    
 
         pg.display.update()
 

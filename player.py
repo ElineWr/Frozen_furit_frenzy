@@ -6,7 +6,7 @@ from bilder import *
 from game import Game
 from objekter import Food
 
-#from main import *
+
 
 class SpriteSheet():
     def __init__(self, image):
@@ -46,8 +46,7 @@ class Player(Object):
             "appelsin": 0  
         }
 
-    def beat(self, x, y, carryingFood):
-            pass
+
 
     def collect_food(self, food):
         self.collected_foods.append(food)  # Legg til bæret i inventaret
@@ -149,21 +148,7 @@ class Player(Object):
             print("colisjon!")
 
         
-        
-
-# def draw(self, screen):
-#     if 0 <= self.handling < len(animasjons_liste):
-#         if len(animasjons_liste[self.handling]) > 0:
-#             self.frame = self.frame % len(animasjons_liste[self.handling])
-#             img = animasjons_liste[self.handling][self.frame]
-#             if self.flipped:
-#                 img = pg.transform.flip(img, True, False).convert_alpha()
-#             screen.blit(img, (self.x, self.y))
-#         else:
-#             print(f"Ugyldig animasjonsliste for handling {self.handling}")
-#     else:
-#         print(f"Ugyldig handling: {self.handling}")
-
+    
 
 
 player = Player(x = 700, y = 220, dx = 1, dy = 1, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)

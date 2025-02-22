@@ -10,8 +10,6 @@ food_animasjons_steps = 4
 food_frame = 0
 
 
-
-
 class Object:
 
     def __init__(self, x, y, image):
@@ -47,19 +45,6 @@ class Food(pg.sprite.Sprite):
     
 
         
-
-        #screen.blit(blaaber, (self.x, self.y)) 
-    # def draw(self, screen, player):
-    #     # plasering
-    #     if game.current_background_index == 0:
-    #         pass
-    #     elif game.cu == coast:
-    #         pass
-    #     elif change_background(player) == camp:
-    #         pass
-    #     elif change_background(player) == cave:
-    #         pass
-
     def detect_collision_with_food(self, player, game, food_items):
         player_rect = pg.Rect(player.x, player.y, player.width, player.height)
 

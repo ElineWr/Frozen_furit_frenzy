@@ -1,6 +1,5 @@
 import pygame as pg
 from constants import *
-# from functions import *
 from game import Game
 
 
@@ -15,13 +14,12 @@ class Square(pg.sprite.Sprite):
         self.background = background 
 
     
-    def tegn(self, screen, game):  # Legg til current_background som parameter
+    def tegn(self, screen, game):  # Bruker funksjonen til å se firkantene når jeg redigerer eller legger inn
         pass
         #  if self.background == game.current_background_index:
         #       pg.draw.rect(screen, self.farge, (self.x, self.y, self.width, self.height))
             
-    # def update(self): 
-    #     self.y += 5
+
         
     def detect_collision(self, player, game):
         player_rect = pg.Rect(player.x, player.y, player.width, player.height)
@@ -53,7 +51,7 @@ all_squares = [
     Square(farge = BLACK, x = 0, y = 0, width = WIDTH, height = (HEIGHT*(1.5/8)), background = 0),
     Square(farge = BLACK, x = 0, y = HEIGHT - (HEIGHT*(1/8)), width = WIDTH, height = (HEIGHT*(1/8)), background = 0),
     
-    # Square(farge = BLACK, x = 0, y = HEIGHT - , width = 50, height = (HEIGHT*(4/8)), background = 0),
+
     # coast
     Square(farge = RED, x=0, y=0, width=WIDTH*(0.5/10), height=HEIGHT*(5/10), background=1),
     Square(farge = RED, x = 0, y = (HEIGHT*(6/8)), width = 50, height = (HEIGHT*(2/8)), background = 1),

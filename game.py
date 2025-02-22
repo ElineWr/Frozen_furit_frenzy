@@ -2,9 +2,6 @@ import pygame as pg
 from constants import * 
 from bilder import*
 
-food_x = 0  # Default value
-food_y = 0  # Default value
-
 
 
 class Game(): 
