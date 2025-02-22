@@ -37,6 +37,7 @@ food_animation_cooldown = 700  # Millisekunder mellom rammeoppdateringer
 def play(game):
     
     def tegn(current_background_index):
+        """
         if current_background_index == 1:
             screen.blit(bjorneber, (550, 600))
             screen.blit(bringeber, (50, 200))
@@ -48,7 +49,7 @@ def play(game):
         elif current_background_index == 3:
             screen.blit(appelsin, (200, 100))
             screen.blit(blaaber, (300, 400))
-
+        """
         for berry in all_ber:  # Tegn alle bær  
             if player.carryingFood == berry:
                 berry.background = current_background_index
@@ -82,6 +83,14 @@ def play(game):
     running = True
     
     while running:
+
+        all_done = all(value == "Done" for value in player.food_count.values())
+
+        # Output the result
+        if all_done:
+            print("All values are 'Done'")
+
+
         clock.tick(FPS)
 
         PLAY_MOUSE_POS = pg.mouse.get_pos()
@@ -144,6 +153,8 @@ def play(game):
 def game_info(game):
 
     while True:
+
+
         INFO_MOUSE_POS = pg.mouse.get_pos()
 
 

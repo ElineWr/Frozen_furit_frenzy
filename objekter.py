@@ -82,14 +82,16 @@ class Food(pg.sprite.Sprite):
 
 all_ber = [
     Food(x = 300, y = 300, image = blaaber, background = 1),
-    Food(x = 0, y = 0, image = bjorneber, background = 1),
+    Food(x = 550, y = 600, image = bjorneber, background = 1),
     Food(x = 50, y = 150, image = appelsin, background = 1),
     Food(x = 950, y = 330, image = blaaber, background = 2),
-    Food(x = 0, y = 0, image = bringeber, background = 2),
-    Food(x = 0, y = 0, image = appelsin, background = 2),
+    Food(x = 100, y = 50, image = bringeber, background = 2),
+    Food(x = 150, y = 610, image = appelsin, background = 2),
     Food(x = 200, y = 100, image = bjorneber, background = 3),
-    Food(x = 0, y = 0, image = bringeber, background = 3),
+    Food(x = 300, y = 400, image = bringeber, background = 3),
     ]
+
+
 
             
 
