@@ -32,12 +32,12 @@ class Food(pg.sprite.Sprite):
         self.background = background 
 
     def get_image(self, frame, width_food, height_food, scale, color):
-        image = pg.Surface((width_food, height_food)).convert_alpha()
-        image.blit(self.image, (0, 0), ((frame * width_food), 0, width_food, height_food))
-        image = pg.transform.scale(image, (width_food * scale, height_food * scale))
+        image = pg.Surface((width_food, height_food), pg.SRCALPHA).convert_alpha()
+        image.blit(self.image, (0, 0), (frame * width_food, 0, width_food, height_food))
+        image = pg.transform.scale(image, (int(width_food * scale), int(height_food * scale)))
         image.set_colorkey(color)
-
         return image
+
 
     def movement(self):
          pass
@@ -46,18 +46,18 @@ class Food(pg.sprite.Sprite):
         
 
         #screen.blit(blaaber, (self.x, self.y)) 
-    def draw(self, screen, player):
+    # def draw(self, screen, player):
+    #     # plasering
+    #     if game.current_background_index == 0:
+    #         pass
+    #     elif game.cu == coast:
+    #         pass
+    #     elif change_background(player) == camp:
+    #         pass
+    #     elif change_background(player) == cave:
+    #         pass
 
-        # plasering
-        if change_background(player) == house:
-            pass
-        elif change_background(player) == coast:
-            pass
-        elif change_background(player) == camp:
-            pass
-        elif change_background(player) == cave:
-            pass
-"""   
+
 all_ber = [
     Food(x = 300, y = 300, image = blaaber, background = 1),
     Food(x = 0, y = 0, image = bjorneber, background = 1),
@@ -72,7 +72,7 @@ all_ber = [
 
 ber = pg.sprite.Group()
 ber.add(all_ber)
-"""
+
         
 
 

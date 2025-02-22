@@ -1,88 +1,59 @@
-import pygame as pg
-from button import Button
-
-# Start opp PyGame:
-pg.init()
-
+import pygame as pg  
 from constants import *
 
+pg.init()
 clock = pg.time.Clock()
 screen = pg.display.set_mode(SIZE)
 
-# Henter inn tekst, bilder, og spilleren:
-# Merk: Kan ikke laste inn font og bilder før vi har gjort pg.init:
-#from tekst import *
+from button import Button  
+
 from bilder import *
 from player import *
 from objekter import *
-from game import Game, food_x, food_y
+from game import Game, food_x, food_y  
 from square_objects import squares, all_squares, Square
 
+# Start opp PyGame:
 
-# pg.display.set_caption("Meny")
+
+
 
 game = Game()  # Opprett et Game-objekt før du starter hovedmenyen
 
-def get_font(size): # Returns Press-Start-2P in the desired size
+def get_font(size):  # Returner font i ønsket størrelse  
     return pg.font.Font("assets/font.ttf", size)
 
+# Opprett spilleren  
+player = Player(x=WIDTH/2, y=HEIGHT/2, dy=3, dx=3, image=victor, money=0, carryingFood=False)
 
-# food_animasjonsliste = []
-# food_animasjons_steps = 4
-# food_frame = 0
-# food_last_update_time = pg.time.get_ticks()  # Time of last frame update
-# food_animation_cooldown = 700  # Milliseconds between frame updates
+# Initialiser matvariabler  
+food_x = 0  
+food_y = 0  
+food_animasjonsliste = []
+food_animasjons_steps = 4  
+food_frame = 0  
+food_last_update_time = pg.time.get_ticks()  # Tid for siste oppdatering av ramme  
+food_animation_cooldown = 700  # Millisekunder mellom rammeoppdateringer
 
+def play(game):
 
-# legg inn på riktig sted: 
-player_rect = pg.Rect(player.x, player.y, player.width, player.height)
-blaaber_rect = pg.Rect(food_x, food_y, 82.66, 83.66)
-
-player = Player(x = WIDTH/2, y = HEIGHT/2, dy = 3, dx = 3, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
-
-
-# lager animasjons listen
-def play(game): 
-    food_x = 0  # Default value  
-    food_y = 0  # Default value
+    def tegne(current_background_index):
+        if current_background_index == 1:
+            screen.blit(bjorneber, (550, 600))
+            screen.blit(bringeber, (50, 200))
+            screen.blit(appelsin, (60, 60))
+        elif current_background_index == 2:
+            screen.blit(bjorneber, (950, 330))
+            screen.blit(blaaber, (100, 50))
+            screen.blit(bringeber, (150, 610))
+        elif current_background_index == 3:
+            screen.blit(appelsin, (200, 100))
+            screen.blit(blaaber, (300, 400))
+            
+    global food_last_update_time  # Fortell Python at vi vil bruke den globale variabelen  
+    global food_frame  # Hvis du også bruker food_frame, legg til dette  
+    running = True
     
-    
-    def tegne(background):
-
-            if background == 1:
-                screen.blit(bjorneber, (550, 600))
-                screen.blit(bringeber, (50, 200))
-                screen.blit(appelsin, (60, 60))
-                #print(f"Food position updated to coast: ({food_x}, {food_y})")
-                
-                
-            elif background == 2:
-                screen.blit(bjorneber, (950, 330))
-                screen.blit(blaaber, (100, 50))
-                screen.blit(bringeber, (150, 610))
-                #print(f"Food position updated to coast: ({food_x}, {food_y})")
-    
-            elif background == 3:
-
-                screen.blit(appelsin, (200, 100))
-                screen.blit(blaaber, (300, 400))
-                #print(f"Food position updated to coast: ({food_x}, {food_y})")
-
-
-    #for x in range(food_animasjons_steps):
-    #food_animasjonsliste.append(Food.get_image(frame = x, width_food = 82.66, height_food=83.66, scale=1, color=BLACK))
-
-    # Initialiser spill-variabler  
-    food_animasjonsliste = []
-    food_animasjons_steps = 4  
-    food_frame = 0  
-    food_last_update_time = pg.time.get_ticks()  # Time of last frame update  
-    food_animation_cooldown = 700  # Milliseconds between frame updates
-
-    for x in range(food_animasjons_steps):
-        food_animasjonsliste.append(blaaber_1.get_image(x, width_food = 82.66, height_food=83.66, scale=1, color=BLACK))
-
-    running = True  
     while running:
         clock.tick(FPS)
 
@@ -95,22 +66,27 @@ def play(game):
                 if event.key == pg.K_m:
                     print("M-knappen ble trykket!")
                     main_menu(game)
-                    # Her kan du legge til en enkel melding eller noe annet for å bekrefte  
 
-        
+        # Tegn bakgrunn  
         screen.blit(game.backgrounds[game.current_background_index], (0, 0))
 
-
-        # Oppdater spilllogikk  
+        # Oppdater spilleren  
         player.draw(screen)
+
         keys_pressed = pg.key.get_pressed()
-        if not any(keys_pressed):  # If no keys are pressed  
+        if not any(keys_pressed):
             frame = 0  
         else:
             for square in squares:
-                if square.background == game.current_background_index:      
+                if square.background == game.current_background_index:
                     square.detect_collision(player, game)
             player.move(squares, game)
+
+        # Mat animasjon  
+        current_time = pg.time.get_ticks()
+        if current_time - food_last_update_time > food_animation_cooldown:
+            food_frame = (food_frame + 1) % food_animasjons_steps  
+            food_last_update_time = current_time
 
         # Oppdater matposisjon basert på bakgrunn  
         if game.current_background_index == 0:
@@ -119,61 +95,20 @@ def play(game):
         elif game.current_background_index in [1, 2, 3]:
             food_x = 400  
             food_y = 300
-            
-         #if player_rect.colliderect(blaaber_rect):
-        # food_x = 0
-       #  player.score += 1
-        # print(f"Player collected a blueberry! Current score: {player.score}")
-            
-        # if player.x >= WIDTH - player.width:  # Høyre kant  
-        #     game.change_background(player)
-        # elif player.x <= 0:  # Venstre kant  
-        #     game.change_background(player)
-        # elif player.y <= 0:  # Toppkant  
-        #     game.change_background(player)
-        # elif player.y >= HEIGHT - player.height:  # Bunnkant  
-        #     game.change_background(player)
 
+        # Tegn mat basert på bakgrunn  
+        tegne(game.current_background_index)
 
-        # Mat animasjon  
-        current_time = pg.time.get_ticks()
-        if current_time - food_last_update_time >= food_animation_cooldown:
-            food_frame += 1  
-            food_last_update_time = current_time  # Update the last frame update time  
-            if food_frame >= food_animasjons_steps:  # Loop the frames  
-                food_frame = 0
-
-        screen.blit(food_animasjonsliste[food_frame], (food_x, food_y))
-
-        # Tegn spillobjekter  
-        for square in all_squares: 
-            square.tegn(screen, game)
-            
-        # Blit the correct frame
-    #if change_background(player) != house:
-    #screen.blit(food_animasjonsliste[food_frame], (food_x, food_y))
-
-    #for ting in all_ber: 
-    tegne(background = game.current_background_index)
-        #ting.colisjon_mat(player)
-
-    # #diamant.tegn(screen)
+        # Oppdater skjermen  
+        pg.display.update()
         
-    #prøve kolisjon med bilde
-    """
-    image_width, image_height = 10, 20
-    image_x, image_y = 400, 250
-    image_rect = pg.Rect(image_x, image_y, image_width, image_height)
-    player_rect = pg.Rect(player.x, player.y, player.width, player.height)
+    play(game)
 
-    screen.blit(blaaber, image_rect)
 
-    if player_rect.colliderect(image_rect):
-        print("Collision detected!")
-    """
-            
-            
-    
+# Start spillet med å kalle play-funksjonen  
+
+
+# Avslutt Pygame  
 
     # Brukeren har avsluttet programmet, game-loopen er ferdig. Avslutt pygame:
     # Men når denne er blokkert så kan man bruke avsluttknappen til bildet som en tilbake til meny-knapp
@@ -259,35 +194,21 @@ def main_menu(game):
         
         screen.blit(MENU_TEXT, MENU_RECT)
         screen.blit(BACK_TO, BACK_RECT)
-        
-        # for event in pg.event.get():
-        #     if event.type == pg.QUIT:
-        #         pg.quit()
-        #         quit()
-        #     if event.type == pg.MOUSEBUTTONDOWN:
-        #         if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-        #             play(game)  # Send game object to play function
-        #         if INFO_BUTTON.checkForInput(MENU_MOUSE_POS):
-        #             game_info(game)
-        #         if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
-        #             pg.quit()
-        #             pg.sys.exit()
-        #     if event.type == pg.KEYDOWN: 
-        #         if event.key == pg.K_m:  # Hvis "M" trykkes  
-        #             main_menu(game)  # Gå til hovedmenyen
+
         
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
-                pg.sys.exit()
+                # pg.sys.exit()
             if event.type == pg.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    play(game)  # Send game object to play function
+                    print("Play button pressed!")  # Debug
+                    play(game)
                 if INFO_BUTTON.checkForInput(MENU_MOUSE_POS):
                     game_info(game)
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pg.quit()
-                    pg.sys.exit()
+                    # pg.sys.exit()
 
         pg.display.update()
 
