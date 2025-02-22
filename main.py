@@ -36,8 +36,8 @@ food_last_update_time = pg.time.get_ticks()  # Tid for siste oppdatering av ramm
 food_animation_cooldown = 700  # Millisekunder mellom rammeoppdateringer
 
 def play(game):
-
-    def tegne(current_background_index):
+    
+    def tegn(current_background_index):
         if current_background_index == 1:
             screen.blit(bjorneber, (550, 600))
             screen.blit(bringeber, (50, 200))
@@ -49,7 +49,35 @@ def play(game):
         elif current_background_index == 3:
             screen.blit(appelsin, (200, 100))
             screen.blit(blaaber, (300, 400))
-            
+
+        for berry in all_ber:  # Tegn alle bær  
+            if player.carryingFood == berry:
+                berry.background = current_background_index
+                berry.x = player.x + 10  # Plasser bæret nær spilleren  
+                berry.y = player.y + 10 
+
+            if berry.background == 0 and player.carryingFood:
+                player.carryingFood.is_collected = False  # Slipp bæret  
+                player.carryingFood = None  # Fjern referansen til bæret
+                if berry.image == blaaber:
+                    print("hei")
+                    player.food_count.update({"blaaber": "Done"})
+                elif berry.image == appelsin:
+                    print("hallo")
+                    player.food_count.update({"appelsin": "Done"})
+                elif berry.image == bringeber:
+                    print("Hola")
+                    player.food_count.update({"bringebær": "Done"})
+                elif berry.image == bjorneber:
+                    print("du der")
+                    player.food_count.update({"bjorneber": "Done"})
+                all_ber.remove(berry)
+
+                        #eturn False
+
+            elif berry.background == current_background_index: # and not berry.is_collected:
+                screen.blit(berry.image, (berry.x, berry.y))
+    
     global food_last_update_time  # Fortell Python at vi vil bruke den globale variabelen  
     global food_frame  # Hvis du også bruker food_frame, legg til dette  
     running = True
@@ -110,18 +138,10 @@ def play(game):
 
         # Tegn mat basert på bakgrunn 
       
-        tegne(game.current_background_index)
+        tegn(game.current_background_index)
         
-        def tegne(current_background_index):
             
-            for berry in all_ber:  # Tegn alle bær  
-                if player.carryingFood == berry:
-                    berry.background = current_background_index
-                    berry.x = player.x + 10  # Plasser bæret nær spilleren  
-                    berry.y = player.y + 10 
-
-                if berry.background == current_background_index: # and not berry.is_collected:
-                    screen.blit(berry.image, (berry.x, berry.y))
+            
 
         # Oppdater skjermen  
         pg.display.update()

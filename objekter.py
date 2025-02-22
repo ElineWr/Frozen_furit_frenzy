@@ -64,12 +64,21 @@ class Food(pg.sprite.Sprite):
         player_rect = pg.Rect(player.x, player.y, player.width, player.height)
 
         for food in food_items:
-            print(food)
+            #print(food)
             food_rect = pg.Rect(food.x, food.y, food.width, food.height)
 
+            #keys_pressed = pg.key.get_pressed()
+            #if food.background == 0 and self.is_collected:
+                   # if player.carryingFood:
+                    #    player.carryingFood.is_collected = False  # Slipp bæret  
+                     #   player.carryingFood = None  # Fjern referansen til bæret
+
+                        #eturn False
+
             if food.background == game.current_background_index:
+                
                 if player_rect.colliderect(food_rect):
-                    print(f"Spilleren har samlet {food}!") #.image
+                    #print(f"Spilleren har samlet {food}!") #.image
                     food.is_collected = True  # Marker bæret som samlet  
                     player.carryingFood = food  # Spilleren bærer dette bæret #food 
                     #food.x = player.x + 10  # Plasser bæret nær spilleren  
@@ -80,11 +89,7 @@ class Food(pg.sprite.Sprite):
                     #player.carryingFood.x = self.x + 5  # Oppdater x-posisjon  
                     #player.carryingFood.y = self.y + 5  # Oppdater y-posisjon
 
-            keys_pressed = pg.key.get_pressed()
-            if food.background == 0 and self.is_collected:
-                if player.carryingFood:
-                    player.carryingFood.is_collected = False  # Slipp bæret  
-                    player.carryingFood = None  # Fjern referansen til bæret
+            
                 
 
         return False  # Ingen kollisjon med noen bær
