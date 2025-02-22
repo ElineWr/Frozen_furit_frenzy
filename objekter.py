@@ -55,7 +55,7 @@ class Food(pg.sprite.Sprite):
         elif background == 2:
             self.screen.blit(bjorneber, (950, 330))
             self.screen.blit(blaaber, (20, 20))
-            self.screen.blit(bringeber, (40, 40))
+            self.screen.blit(bringeber, (80, 600))
             #print(f"Food position updated to coast: ({food_x}, {food_y})")
  
         elif background == 3:
