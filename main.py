@@ -50,15 +50,15 @@ def play(game):
             screen.blit(appelsin, (200, 100))
             screen.blit(blaaber, (300, 400))
         """
-        for berry in all_ber:  # Tegn alle bær  
+        for berry in all_ber: 
             if player.carryingFood == berry:
                 berry.background = current_background_index
-                berry.x = player.x + 10  # Plasser bæret nær spilleren  
+                berry.x = player.x + 10  
                 berry.y = player.y + 10 
 
             if berry.background == 0 and player.carryingFood:
-                player.carryingFood.is_collected = False  # Slipp bæret  
-                player.carryingFood = None  # Fjern referansen til bæret
+                player.carryingFood.is_collected = False  #
+                player.carryingFood = None  
                 if berry.image == blaaber:
                     print("Victor har plukket opp blåbær")
                     player.food_count.update({"blaaber": "Done"})
@@ -75,11 +75,11 @@ def play(game):
 
                         #eturn False
 
-            elif berry.background == current_background_index: # and not berry.is_collected:
+            elif berry.background == current_background_index:
                 screen.blit(berry.image, (berry.x, berry.y))
     
-    global food_last_update_time  # Fortell Python at vi vil bruke den globale variabelen  
-    global food_frame  # Hvis du også bruker food_frame, legg til dette  
+    global food_last_update_time  
+    global food_frame 
     running = True
     
     while running:
@@ -115,9 +115,6 @@ def play(game):
             for berry in all_ber: 
                 if berry.background == game.current_background_index:
                     berry.detect_collision_with_food(player, game, all_ber)
-                    #player.carryingFood = berry  # Sett bæret som det nåværende 
-                    #berry.x = player.x + 10  # Plasser bæret nær spilleren  
-                    #berry.y = player.y + 10
                     print(player.carryingFood)
             player.move(squares, game)
 
@@ -132,9 +129,7 @@ def play(game):
 
       
         tegn(game.current_background_index)
-        
-            
-            
+    
 
  
         pg.display.update()
@@ -147,11 +142,7 @@ def game_info(game):
 
     while True:
 
-
         INFO_MOUSE_POS = pg.mouse.get_pos()
-
-
-        # screen.blit(game.backgrounds[current_background_index], (0, 0))  # Bruk den lagrede bakgrunnen
         screen.fill(WHITE)
 
         INFO_HEADER = get_font(26).render("Her er info om hvordan spillet funker", True, BLACK)
@@ -210,7 +201,6 @@ def show_inventory(player):
         screen.blit(task_header, (WIDTH * (2.7/4) - task_header.get_width() / 2, 200))
 
 
-
         tasks = {
         "blaaber": 1,      
         "bjorneber": 1,    
@@ -231,8 +221,8 @@ def show_inventory(player):
             
             # Tegn bilde av bæret  
             if food_image:
-                food_surface = pg.transform.scale(food_image, (70, 70))  # Skaler bæret for visning  
-                screen.blit(food_surface, (WIDTH * (0.6/4), y_offset - 20))  # Plasser bæret
+                food_surface = pg.transform.scale(food_image, (70, 70))  # Skalerer bæret
+                screen.blit(food_surface, (WIDTH * (0.6/4), y_offset - 20)) 
 
             # Tegn antallet ved siden av  
             count_text = get_font(30).render(f"x {required_count}", True, DARK_BLUE)
@@ -252,12 +242,12 @@ def show_inventory(player):
             elif food_name == "appelsin":
                 food_image = appelsin
             
-            # Tegn bilde av bæret  
+    
             if food_image:
                 food_surface = pg.transform.scale(food_image, (70, 70)) 
                 screen.blit(food_surface, (WIDTH*(2.2/4), y_offset - 20))  
 
-            # Tegn antallet ved siden av  
+            
             count_text = get_font(30).render(f"x {count}", True, DARK_BLUE)
             screen.blit(count_text, (WIDTH*(2.7/4), y_offset)) 
 
