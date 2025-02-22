@@ -1,5 +1,5 @@
 
-from objekter import Object
+from objekter import Object, Food
 from constants import PLAYER_SPEED, WIDTH, HEIGHT, BLACK
 from pygame.locals import (K_UP, K_DOWN, K_LEFT, K_RIGHT)
 from bilder import *
@@ -96,8 +96,6 @@ class Player(Object):
             game.change_background(self)
             
     
-
-
         
         # Frame update based on animation cooldown
         current_time = pg.time.get_ticks()
@@ -123,7 +121,12 @@ class Player(Object):
         else:
             print(f"Ugyldig handling: {self.handling}")
 
+    def colisjon_mat(self, ber):
+        if pg.sprite.spritecollide(self, ber, True):
+            print("colisjon!")
 
+        
+        
 
 # def draw(self, screen):
 #     if 0 <= self.handling < len(animasjons_liste):

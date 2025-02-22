@@ -14,12 +14,9 @@ screen = pg.display.set_mode(SIZE)
 from bilder import *
 from player import *
 from objekter import *
-from game import Game
-from square_objects import squares, all_squares
+from game import Game, food_x, food_y
+from square_objects import squares, all_squares, Square
 
-food_animasjonsliste = []
-food_animasjons_steps = 4
-food_frame = 0
 food_last_update_time = pg.time.get_ticks()  # Time of last frame update
 food_animation_cooldown = 700  # Milliseconds between frame updates
 
@@ -31,32 +28,52 @@ player = Player(x = WIDTH/2, y = HEIGHT/2, dy = 3, dx = 3, image = victor, money
 
 game = Game()
 
-food_x = 0  # Default value
-food_y = 0  # Default value
+def tegne(background):
 
-for x in range(food_animasjons_steps):
-      food_animasjonsliste.append(blaaber_1.get_image(x, width_food = 82.66, height_food=83.66, scale=1, color=BLACK))
+        if background == 1:
+            screen.blit(bjorneber, (300, 300))
+            screen.blit(bringeber, (50, 150))
+            screen.blit(appelsin, (60, 60))
+            #print(f"Food position updated to coast: ({food_x}, {food_y})")
+            
+            
+        elif background == 2:
+            screen.blit(bjorneber, (950, 330))
+            screen.blit(blaaber, (20, 20))
+            screen.blit(bringeber, (40, 40))
+            #print(f"Food position updated to coast: ({food_x}, {food_y})")
+ 
+        elif background == 3:
+
+            screen.blit(appelsin, (200, 100))
+            screen.blit(blaaber, (10, 10))
+            #print(f"Food position updated to coast: ({food_x}, {food_y})")
 
 
+#for x in range(food_animasjons_steps):
+    #food_animasjonsliste.append(Food.get_image(frame = x, width_food = 82.66, height_food=83.66, scale=1, color=BLACK))
 
+player_rect = pg.Rect(player.x, player.y, player.width, player.height)
+blaaber_rect = pg.Rect(food_x, food_y, 82.66, 83.66)
 
 running = True
 while running:
-    try:
-        for event in pg.event.get():
+    #try:
+    for event in pg.event.get():
             # if event.type == pg.MOUSEBUTTONDOWN: 
             #     pos = pg.mouse.get_pos()
                 
             #     square = Square(BLACK, pos[0], pos[1], 50, 50)
             #     squares.add(square)
-            if event.type == pg.QUIT:
-                running = False
+        if event.type == pg.QUIT:
+            running = False
             # elif event.type == pg.KEYDOWN:
             #     print(f"Key pressed: {event.key}")  # Legg til logging for tastetrykk
-    except Exception as e:
-        print(f"Error: {e}")
-        running = False
+    #except Exception as e:
+        #print(f"Error: {e}")
+        #running = False
                 
+         
 
     clock.tick(FPS)
 
@@ -108,25 +125,12 @@ while running:
                 square.detect_collision(player, game)
         player.move(squares, game)
 
+ 
+    #if player_rect.colliderect(blaaber_rect):
+        # food_x = 0
+       #  player.score += 1
+        # print(f"Player collected a blueberry! Current score: {player.score}")
 
-    
-    #if change_background(player) == house:
-            #food_x = 0
-            #food_y = 0
-    if game.backgrounds == coast:
-            food_x = 400
-            food_y = 300
-            print(f"Food position updated to coast: ({food_x}, {food_y})")
-    elif game.backgrounds == camp:
-            food_x = 400
-            food_y = 300
-            print(f"Food position updated to coast: ({food_x}, {food_y})")
-    elif game.backgrounds == cave:
-            food_x = 400
-            food_y = 300
-            print(f"Food position updated to coast: ({food_x}, {food_y})")
-    
-    
     #blaaber_1.draw(screen, player)
 
     current_time = pg.time.get_ticks()
@@ -138,10 +142,26 @@ while running:
 
     # Blit the correct frame
     #if change_background(player) != house:
-    screen.blit(food_animasjonsliste[food_frame], (food_x, food_y))
-    
+    #screen.blit(food_animasjonsliste[food_frame], (food_x, food_y))
+
+    #for ting in all_ber: 
+    tegne(background = game.current_background_index)
+        #ting.colisjon_mat(player)
 
     # #diamant.tegn(screen)
+        
+    #prøve kolisjon med bilde
+    """
+    image_width, image_height = 10, 20
+    image_x, image_y = 400, 250
+    image_rect = pg.Rect(image_x, image_y, image_width, image_height)
+    player_rect = pg.Rect(player.x, player.y, player.width, player.height)
+
+    screen.blit(blaaber, image_rect)
+
+    if player_rect.colliderect(image_rect):
+        print("Collision detected!")
+    """
 
 
     for square in all_squares: 
