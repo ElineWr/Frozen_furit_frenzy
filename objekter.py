@@ -64,13 +64,14 @@ class Food(pg.sprite.Sprite):
         player_rect = pg.Rect(player.x, player.y, player.width, player.height)
 
         for food in food_items:
+            print(food)
             food_rect = pg.Rect(food.x, food.y, food.width, food.height)
 
             if food.background == game.current_background_index:
                 if player_rect.colliderect(food_rect):
-                    print(f"Spilleren har samlet {food.image}!")
-                    food.is_collected = True  # Marker bæret som samlet  
-                    player.carryingFood = food  # Spilleren bærer dette bæret  
+                    print(f"Spilleren har samlet {food}!") #.image
+                    #food.is_collected = True  # Marker bæret som samlet  
+                    player.carryingFood = food  # Spilleren bærer dette bæret #food 
                     food.x = player.x + 10  # Plasser bæret nær spilleren  
                     food.y = player.y + 10  
                     return True  # Kollisjon oppstod med bæret
