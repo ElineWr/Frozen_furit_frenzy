@@ -35,6 +35,7 @@ play_rect = pg.image.load("assets/Play Rect.png").convert_alpha()
 quit_rect = pg.image.load("assets/Quit Rect.png").convert_alpha()
 test = pg.image.load("assets/test.webp").convert_alpha()
 pause_menu = pg.image.load("assets/Pause Rect.png").convert_alpha()
-
+menu_bck = pg.image.load("assets/Title Rect.png").convert_alpha()
+white_bg = pg.image.load("assets/white.jpg").convert_alpha()
 
 
