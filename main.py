@@ -66,6 +66,8 @@ def play(game):
                 if event.key == pg.K_m:
                     print("M-knappen ble trykket!")
                     main_menu(game)
+                if event.key == pg.K_i: 
+                    show_inventory(player)
 
         # Tegn bakgrunn  
         screen.blit(game.backgrounds[game.current_background_index], (0, 0))
@@ -156,11 +158,15 @@ def game_info(game):
             screen.blit(text_surface, text_rect)
             y_offset += 30  # Øk y-posisjonen for neste linje
 
-        KEYS_TXT = get_font(20).render("Bruk piltastene til å navigere Victor", True, BLACK)
+        KEYS_TXT = get_font(20).render("Bruk piltastene for å navigere Victor,", True, BLACK)
         KEYS_RECT = KEYS_TXT.get_rect(center=(WIDTH/2, 500))
         screen.blit(KEYS_TXT, KEYS_RECT)
-
-        EXIT = get_font(20).render("Bruk esc for å komme tilbake til hovedmeny", True, BLACK)
+        
+        INVENTORY_TXT = get_font(20).render("tasten I viser oppgaven og inventaret ditt", True, BLACK)
+        INVENTORY_RECT = INVENTORY_TXT.get_rect(center=(WIDTH/2, 550))
+        screen.blit(INVENTORY_TXT, INVENTORY_RECT)
+        
+        EXIT = get_font(20).render("og  esc tar deg tilbake til hovedmenyen.", True, BLACK)
         EXIT_RECT = EXIT.get_rect(center = (WIDTH/2, 600))
         screen.blit(EXIT, EXIT_RECT)
 
@@ -173,7 +179,90 @@ def game_info(game):
                     return  # Gå tilbake til den forrige skjermen
 
         pg.display.update()
+        
+def show_inventory(player):
+    inventory_open = True  # Variabel for å sjekke om inventaret er åpent
 
+    while inventory_open:  # Fortsett å vise inventaret til det lukkes  
+        # Fyll skjermen med bakgrunnsfarge  
+        screen.blit(offwhite_bg, ((WIDTH - 803)/2, (HEIGHT - 410)/2))
+        
+        # Tegn overskrifter  
+        inventory_header = get_font(30).render("Oppgave", True, DARK_BLUE)
+        screen.blit(inventory_header, (WIDTH * (1/4) - inventory_header.get_width() / 2, 200))
+
+        task_header = get_font(30).render("Inventar", True, DARK_BLUE)
+        screen.blit(task_header, (WIDTH * (2.7/4) - task_header.get_width() / 2, 200))
+
+
+
+        tasks = {
+        "blaaber": 1,      # Spilleren skal samle 5 blåbær  
+        "bjorneber": 1,    # Spilleren skal samle 3 bjørnebær  
+        "bringebær": 1,     # Spilleren skal samle 2 bringebær  
+        "appelsin": 1      # Spilleren skal samle 4 appelsiner  
+    }
+        y_offset = 300  # Startposisjon for oppgavene  
+        for food_name, required_count in tasks.items():
+            food_image = None  
+            if food_name == "blaaber":
+                food_image = blaaber  
+            elif food_name == "bjorneber":
+                food_image = bjorneber  
+            elif food_name == "bringebær":
+                food_image = bringeber  
+            elif food_name == "appelsin":
+                food_image = appelsin
+            
+            # Tegn bilde av bæret  
+            if food_image:
+                food_surface = pg.transform.scale(food_image, (70, 70))  # Skaler bæret for visning  
+                screen.blit(food_surface, (WIDTH * (0.6/4), y_offset - 20))  # Plasser bæret
+
+            # Tegn antallet ved siden av  
+            count_text = get_font(30).render(f"x {required_count}", True, DARK_BLUE)
+            screen.blit(count_text, (WIDTH * (0.7/4) + 80, y_offset))  # Plasser antallet til høyre for bæret
+
+            y_offset += 50  # Juster avstanden mellom radene 
+        # Tegn bærene spilleren har samlet med antall  
+        y_offset = 300  # Startposisjon for bærene og antall  
+        for food_name, count in player.food_count.items():
+            food_image = None  
+            if food_name == "blaaber":
+                food_image = blaaber  
+            elif food_name == "bjorneber":
+                food_image = bjorneber  
+            elif food_name == "bringebær":
+                food_image = bringeber  
+            elif food_name == "appelsin":
+                food_image = appelsin
+            
+            # Tegn bilde av bæret  
+            if food_image:
+                food_surface = pg.transform.scale(food_image, (70, 70))  # Skaler bæret for visning  
+                screen.blit(food_surface, (WIDTH*(2.2/4), y_offset - 20))  # Plasser bæret
+
+            # Tegn antallet ved siden av  
+            count_text = get_font(30).render(f"x {count}", True, DARK_BLUE)
+            screen.blit(count_text, (WIDTH*(2.7/4), y_offset))  # Plasser antallet til høyre for bæret
+
+            y_offset += 50  # Juster avstanden mellom radene
+
+
+        
+        # Håndter hendelser  
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()  # Avslutt programmet hvis brukeren lukker vinduet  
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_ESCAPE:  # Bruk escape-tasten for å gå tilbake  
+                    inventory_open = False  # Lukk inventaret
+
+        pg.display.update()  # Oppdater skjermen
+    
+
+        
+        
 def main_menu(game):
     
     while True:
@@ -226,3 +315,4 @@ def main_menu(game):
 
 
 main_menu(game)
+
