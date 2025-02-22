@@ -60,16 +60,16 @@ def play(game):
                 player.carryingFood.is_collected = False  # Slipp bæret  
                 player.carryingFood = None  # Fjern referansen til bæret
                 if berry.image == blaaber:
-                    print("hei")
+                    print("Victor har plukket opp blåbær")
                     player.food_count.update({"blaaber": "Done"})
                 elif berry.image == appelsin:
-                    print("hallo")
+                    print("Victor har plukket opp appelsin")
                     player.food_count.update({"appelsin": "Done"})
                 elif berry.image == bringeber:
-                    print("Hola")
+                    print("Victor har plukket opp bringebær")
                     player.food_count.update({"bringebær": "Done"})
                 elif berry.image == bjorneber:
-                    print("du der")
+                    print("Victor har plukket opp bjørnebær")
                     player.food_count.update({"bjorneber": "Done"})
                 all_ber.remove(berry)
 
