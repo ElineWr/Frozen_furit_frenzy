@@ -30,6 +30,9 @@ class Food(pg.sprite.Sprite):
         self.image = image
         self.rect = pg.Rect(self.x, self.y, 82.66, 83.66)
         self.background = background 
+        self.width = 82.66  
+        self.height = 83.66 
+        self.is_collected = False  
 
     def get_image(self, frame, width_food, height_food, scale, color):
         image = pg.Surface((width_food, height_food), pg.SRCALPHA).convert_alpha()
@@ -57,6 +60,23 @@ class Food(pg.sprite.Sprite):
     #     elif change_background(player) == cave:
     #         pass
 
+    def detect_collision_with_food(self, player, game, food_items):
+        player_rect = pg.Rect(player.x, player.y, player.width, player.height)
+
+        for food in food_items:
+            food_rect = pg.Rect(food.x, food.y, food.width, food.height)
+
+            if food.background == game.current_background_index:
+                if player_rect.colliderect(food_rect):
+                    print(f"Spilleren har samlet {food.image}!")
+                    food.is_collected = True  # Marker bæret som samlet  
+                    player.carryingFood = food  # Spilleren bærer dette bæret  
+                    food.x = player.x + 10  # Plasser bæret nær spilleren  
+                    food.y = player.y + 10  
+                    return True  # Kollisjon oppstod med bæret
+
+        return False  # Ingen kollisjon med noen bær
+        
 
 all_ber = [
     Food(x = 300, y = 300, image = blaaber, background = 1),
@@ -66,7 +86,8 @@ all_ber = [
     Food(x = 0, y = 0, image = bringeber, background = 2),
     Food(x = 0, y = 0, image = appelsin, background = 2),
     Food(x = 200, y = 100, image = bjorneber, background = 3),
-    Food(x = 0, y = 0, image = bringeber, background = 3)]
+    Food(x = 0, y = 0, image = bringeber, background = 3),
+    ]
 
             
 

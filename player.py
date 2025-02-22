@@ -4,6 +4,7 @@ from constants import PLAYER_SPEED, WIDTH, HEIGHT, BLACK
 from pygame.locals import (K_UP, K_DOWN, K_LEFT, K_RIGHT)
 from bilder import *
 from game import Game
+from objekter import Food
 
 #from main import *
 
@@ -28,7 +29,7 @@ class Player(Object):
         self.dy = dy
         self.dx = dx
         self.money = money
-        self.carryingFood = carryingFood
+        self.carryingFood = None
         self.handling = 1  # Initial handling (state)
         self.frame = 0
         self.sheet_type = victor  # Initial sprite sheet
@@ -106,6 +107,16 @@ class Player(Object):
             if self.frame >= len(animasjons_liste[self.handling]):  # Loop the frames
                 self.frame = 0
 
+        if self.carryingFood:
+            self.carryingFood.x = self.x + 5  # Oppdater x-posisjon  
+            self.carryingFood.y = self.y + 5  # Oppdater y-posisjon
+            
+        if keys_pressed[pg.K_d] and self.carryingFood:
+            self.carryingFood.is_collected = False  # Slipp bæret  
+            self.carryingFood = None  # Fjern referansen til bæret
+                
+            
+    
     def draw(self, screen):
     # Sjekk om handlingen er gyldig
         if 0 <= self.handling < len(animasjons_liste):

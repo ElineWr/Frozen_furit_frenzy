@@ -80,7 +80,17 @@ def play(game):
             for square in squares:
                 if square.background == game.current_background_index:
                     square.detect_collision(player, game)
+                    
+            for berry in all_ber: 
+                if berry.background == game.current_background_index:
+                    berry.detect_collision_with_food(player, game, all_ber)
+                    player.carryingFood = berry  # Sett bæret som det nåværende 
+                    berry.x = player.x + 10  # Plasser bæret nær spilleren  
+                    berry.y = player.y + 10
+                    print(player.carryingFood)
             player.move(squares, game)
+
+                    
 
         # Mat animasjon  
         current_time = pg.time.get_ticks()
@@ -89,24 +99,26 @@ def play(game):
             food_last_update_time = current_time
 
         # Oppdater matposisjon basert på bakgrunn  
-        if game.current_background_index == 0:
-            food_x = 0  
-            food_y = 0  
-        elif game.current_background_index in [1, 2, 3]:
-            food_x = 400  
-            food_y = 300
+        # if game.current_background_index == 0:
+        #     food_x = 0  
+        #     food_y = 0  
+        # elif game.current_background_index in [1, 2, 3]:
+        #     food_x = 400  
+        #     food_y = 300
 
-        # Tegn mat basert på bakgrunn  
+        # Tegn mat basert på bakgrunn 
+      
         tegne(game.current_background_index)
+        
+        def tegne(current_background_index):
+            for berry in all_ber:  # Tegn alle bær  
+                if berry.background == current_background_index and not berry.is_collected:
+                    screen.blit(berry.image, (berry.x, berry.y))
 
         # Oppdater skjermen  
         pg.display.update()
         
     play(game)
-
-
-# Start spillet med å kalle play-funksjonen  
-
 
 # Avslutt Pygame  
 
