@@ -2,6 +2,15 @@
 from player import *
 from bilder import *
 from constants import *
+from game import Game
+
+
+food_animasjonsliste = []
+food_animasjons_steps = 4
+food_frame = 0
+
+
+
 
 class Object:
 
@@ -12,15 +21,20 @@ class Object:
 
 
 
-class Food(Object):
+class Food(pg.sprite.Sprite):
 
-    def __init__(self, x, y, image):
-        super().__init__(x, y, image)
+    def __init__(self, x, y, image, background): 
+        pg.sprite.Sprite.__init__(self)
+        self.x = x
+        self.y = y
+        self.image = image
+        self.rect = pg.Rect(self.x, self.y, 82.66, 83.66)
+        self.background = background 
 
     def get_image(self, frame, width_food, height_food, scale, color):
         image = pg.Surface((width_food, height_food)).convert_alpha()
         image.blit(self.image, (0, 0), ((frame * width_food), 0, width_food, height_food))
-        #image = pg.transform.scale(image, (width_food * scale, height_food * scale))
+        image = pg.transform.scale(image, (width_food * scale, height_food * scale))
         image.set_colorkey(color)
 
         return image
@@ -28,9 +42,10 @@ class Food(Object):
     def movement(self):
          pass
     
-    
-    
-         
+
+        
+
+        #screen.blit(blaaber, (self.x, self.y)) 
     def draw(self, screen, player):
 
         # plasering
@@ -42,12 +57,27 @@ class Food(Object):
             pass
         elif change_background(player) == cave:
             pass
+"""   
+all_ber = [
+    Food(x = 300, y = 300, image = blaaber, background = 1),
+    Food(x = 0, y = 0, image = bjorneber, background = 1),
+    Food(x = 50, y = 150, image = appelsin, background = 1),
+    Food(x = 950, y = 330, image = blaaber, background = 2),
+    Food(x = 0, y = 0, image = bringeber, background = 2),
+    Food(x = 0, y = 0, image = appelsin, background = 2),
+    Food(x = 200, y = 100, image = bjorneber, background = 3),
+    Food(x = 0, y = 0, image = bringeber, background = 3)]
 
-        #screen.blit(blaaber, (self.x, self.y)) 
+            
+
+ber = pg.sprite.Group()
+ber.add(all_ber)
+"""
         
-blaaber_1 = Food(x = 0, y = 0, image = blaaber)
+
+
     
-frame_0 = blaaber_1.get_image(frame = 0, width_food = 82.66, height_food=83.66, scale=1, color=BLACK)
+#frame_0 = ber.get_image(frame = 0, width_food = 82.66, height_food=83.66, scale=1, color=BLACK)
 
 
 

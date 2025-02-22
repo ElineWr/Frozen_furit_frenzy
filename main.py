@@ -15,8 +15,8 @@ screen = pg.display.set_mode(SIZE)
 from bilder import *
 from player import *
 from objekter import *
-from game import Game
-from square_objects import squares, all_squares
+from game import Game, food_x, food_y
+from square_objects import squares, all_squares, Square
 
 
 # pg.display.set_caption("Meny")
@@ -34,6 +34,10 @@ def get_font(size): # Returns Press-Start-2P in the desired size
 # food_animation_cooldown = 700  # Milliseconds between frame updates
 
 
+# legg inn på riktig sted: 
+player_rect = pg.Rect(player.x, player.y, player.width, player.height)
+blaaber_rect = pg.Rect(food_x, food_y, 82.66, 83.66)
+
 player = Player(x = WIDTH/2, y = HEIGHT/2, dy = 3, dx = 3, image = victor, money = 0, carryingFood = False)  #WIDTH/2+5, 260)
 
 
@@ -41,6 +45,32 @@ player = Player(x = WIDTH/2, y = HEIGHT/2, dy = 3, dx = 3, image = victor, money
 def play(game): 
     food_x = 0  # Default value  
     food_y = 0  # Default value
+    
+    
+    def tegne(background):
+
+            if background == 1:
+                screen.blit(bjorneber, (550, 600))
+                screen.blit(bringeber, (50, 200))
+                screen.blit(appelsin, (60, 60))
+                #print(f"Food position updated to coast: ({food_x}, {food_y})")
+                
+                
+            elif background == 2:
+                screen.blit(bjorneber, (950, 330))
+                screen.blit(blaaber, (100, 50))
+                screen.blit(bringeber, (150, 610))
+                #print(f"Food position updated to coast: ({food_x}, {food_y})")
+    
+            elif background == 3:
+
+                screen.blit(appelsin, (200, 100))
+                screen.blit(blaaber, (300, 400))
+                #print(f"Food position updated to coast: ({food_x}, {food_y})")
+
+
+    #for x in range(food_animasjons_steps):
+    #food_animasjonsliste.append(Food.get_image(frame = x, width_food = 82.66, height_food=83.66, scale=1, color=BLACK))
 
     # Initialiser spill-variabler  
     food_animasjonsliste = []
@@ -90,6 +120,11 @@ def play(game):
             food_x = 400  
             food_y = 300
             
+         #if player_rect.colliderect(blaaber_rect):
+        # food_x = 0
+       #  player.score += 1
+        # print(f"Player collected a blueberry! Current score: {player.score}")
+            
         # if player.x >= WIDTH - player.width:  # Høyre kant  
         #     game.change_background(player)
         # elif player.x <= 0:  # Venstre kant  
@@ -113,6 +148,29 @@ def play(game):
         # Tegn spillobjekter  
         for square in all_squares: 
             square.tegn(screen, game)
+            
+        # Blit the correct frame
+    #if change_background(player) != house:
+    #screen.blit(food_animasjonsliste[food_frame], (food_x, food_y))
+
+    #for ting in all_ber: 
+    tegne(background = game.current_background_index)
+        #ting.colisjon_mat(player)
+
+    # #diamant.tegn(screen)
+        
+    #prøve kolisjon med bilde
+    """
+    image_width, image_height = 10, 20
+    image_x, image_y = 400, 250
+    image_rect = pg.Rect(image_x, image_y, image_width, image_height)
+    player_rect = pg.Rect(player.x, player.y, player.width, player.height)
+
+    screen.blit(blaaber, image_rect)
+
+    if player_rect.colliderect(image_rect):
+        print("Collision detected!")
+    """
             
             
     
