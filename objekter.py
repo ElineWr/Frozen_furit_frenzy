@@ -17,8 +17,6 @@ class Object:
         self.y = y
         self.image = image
 
-
-
 class Food(pg.sprite.Sprite):
 
     def __init__(self, x, y, image, background): 

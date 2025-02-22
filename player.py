@@ -96,7 +96,7 @@ class Player(Object):
             self.dy = PLAYER_SPEED
             if self.sheet_type == victor_opp:
                 self.sheet_type = victor  # Endre til ned animasjon
-        # Sjekk for kollisjon med firkanter  
+    
         for square in squares:
             if square.detect_collision(self, game):
                 # Hvis det oppstår en kollisjon, tilbakestill posisjonen  
@@ -116,7 +116,6 @@ class Player(Object):
             
     
         
-        # Frame update based on animation cooldown
         current_time = pg.time.get_ticks()
         if current_time - self.last_update_time >= self.animation_cooldown:
             self.frame += 1
