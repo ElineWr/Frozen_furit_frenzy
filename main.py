@@ -89,6 +89,16 @@ def play(game):
         elif game.current_background_index in [1, 2, 3]:
             food_x = 400  
             food_y = 300
+            
+        # if player.x >= WIDTH - player.width:  # Høyre kant  
+        #     game.change_background(player)
+        # elif player.x <= 0:  # Venstre kant  
+        #     game.change_background(player)
+        # elif player.y <= 0:  # Toppkant  
+        #     game.change_background(player)
+        # elif player.y >= HEIGHT - player.height:  # Bunnkant  
+        #     game.change_background(player)
+
 
         # Mat animasjon  
         current_time = pg.time.get_ticks()
@@ -103,8 +113,9 @@ def play(game):
         # Tegn spillobjekter  
         for square in all_squares: 
             square.tegn(screen, game)
-
-        pg.display.update()
+            
+            
+    
 
     # Brukeren har avsluttet programmet, game-loopen er ferdig. Avslutt pygame:
     # Men når denne er blokkert så kan man bruke avsluttknappen til bildet som en tilbake til meny-knapp

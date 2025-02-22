@@ -28,6 +28,8 @@ class Food(Object):
     def movement(self):
          pass
     
+    
+    
          
     def draw(self, screen, player):
 
