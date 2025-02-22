@@ -16,7 +16,7 @@ class Square(pg.sprite.Sprite):
     
     def tegn(self, screen, game):  # Bruker funksjonen til å se firkantene når jeg redigerer eller legger inn
         pass
-        #  if self.background == game.current_background_index:
+        # if self.background == game.current_background_index:
         #       pg.draw.rect(screen, self.farge, (self.x, self.y, self.width, self.height))
             
 
@@ -46,9 +46,9 @@ class Square(pg.sprite.Sprite):
 all_squares = [
     # house 
     Square(farge = BLACK, x = 0, y = 0, width = 250, height = HEIGHT, background=0),
-    Square(farge = BLACK, x = WIDTH - 50, y = 0, width = 50, height = (HEIGHT*(4/8)), background = 0),
-    Square(farge = BLACK, x = WIDTH - 50, y = (HEIGHT*(6/8)), width = 50, height = (HEIGHT*(2/8)), background = 0),
-    Square(farge = BLACK, x = 0, y = 0, width = WIDTH, height = (HEIGHT*(1.5/8)), background = 0),
+    Square(farge = RED, x = WIDTH - 50, y = 0, width = 50, height = (HEIGHT*(4/8)), background = 0),
+    Square(farge = BLUE, x = WIDTH - 50, y = (HEIGHT*(6/8)), width = 50, height = (HEIGHT*(2/8)), background = 0),
+    Square(farge = GREEN, x = 0, y = 0, width = WIDTH, height = (HEIGHT*(1.5/8)), background = 0),
     Square(farge = BLACK, x = 0, y = HEIGHT - (HEIGHT*(1/8)), width = WIDTH, height = (HEIGHT*(1/8)), background = 0),
     
 

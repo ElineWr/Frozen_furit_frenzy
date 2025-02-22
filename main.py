@@ -267,13 +267,11 @@ def show_inventory(player):
 
         if all_done:
     
-            HAPPY_VICTOR = get_font(20).render("Yes! Du er ferdig, nå er Victor glad!", True, DARK_BLUE)
+            HAPPY_VICTOR = get_font(20).render("Yes! Du er ferdig, nå er Victor glad og mett!", True, DARK_BLUE)
             HAPPY_RECT = HAPPY_VICTOR.get_rect(center=(WIDTH/2, 525))
             screen.blit(HAPPY_VICTOR, HAPPY_RECT)
-        
+    
 
-        
-        # Håndter hendelser  
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit() 
@@ -284,8 +282,7 @@ def show_inventory(player):
         pg.display.update()  
     
 
-        
-        
+    
 def main_menu(game):
     
     while True:
@@ -312,7 +309,7 @@ def main_menu(game):
 
 
         for button in [PLAY_BUTTON, INFO_BUTTON, QUIT_BUTTON, MENU_BCK]:
-            button.changeColor(MENU_MOUSE_POS)
+            button.change_color(MENU_MOUSE_POS)
             button.update(screen)
 
         
@@ -325,12 +322,12 @@ def main_menu(game):
                 pg.quit()
 
             if event.type == pg.MOUSEBUTTONDOWN:
-                if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if PLAY_BUTTON.check_for_input(MENU_MOUSE_POS):
                     print("Play button pressed!")  # Debug
                     play(game)
-                if INFO_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if INFO_BUTTON.check_for_input(MENU_MOUSE_POS):
                     game_info(game)
-                if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if QUIT_BUTTON.check_for_input(MENU_MOUSE_POS):
                     pg.quit()
                     
 

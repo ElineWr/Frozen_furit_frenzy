@@ -40,43 +40,18 @@ class Food(pg.sprite.Sprite):
         return image
 
 
-    def movement(self):
-         pass
-    
-
         
     def detect_collision_with_food(self, player, game, food_items):
         player_rect = pg.Rect(player.x, player.y, player.width, player.height)
 
         for food in food_items:
-            #print(food)
+
             food_rect = pg.Rect(food.x, food.y, food.width, food.height)
-
-            #keys_pressed = pg.key.get_pressed()
-            #if food.background == 0 and self.is_collected:
-                   # if player.carryingFood:
-                    #    player.carryingFood.is_collected = False  # Slipp bæret  
-                     #   player.carryingFood = None  # Fjern referansen til bæret
-
-                        #eturn False
-
-            if food.background == game.current_background_index:
-                
+            if food.background == game.current_background_index:    
                 if player_rect.colliderect(food_rect):
-                    #print(f"Spilleren har samlet {food}!") #.image
-                    food.is_collected = True  # Marker bæret som samlet  
-                    player.carryingFood = food  # Spilleren bærer dette bæret #food 
-                    #food.x = player.x + 10  # Plasser bæret nær spilleren  
-                    #food.y = player.y + 10  
-                    return True  # Kollisjon oppstod med bæret
-                
-                #if player.carryingFood == food:
-                    #player.carryingFood.x = self.x + 5  # Oppdater x-posisjon  
-                    #player.carryingFood.y = self.y + 5  # Oppdater y-posisjon
-
-            
-                
-
+                    food.is_collected = True 
+                    player.carryingFood = food 
+                    return True          
         return False  # Ingen kollisjon med noen bær
         
 
@@ -92,8 +67,6 @@ all_ber = [
     ]
 
 
-
-            
 
 ber = pg.sprite.Group()
 ber.add(all_ber)
