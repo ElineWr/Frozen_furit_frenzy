@@ -21,7 +21,6 @@ victor_opp = pg.image.load("assets/victor_opp.jpg").convert_alpha()
 victor_opp = pg.transform.scale(victor_opp, (629, 75))
 
 victor_left = pg.transform.flip(victor, True, False)
-#victor_left = pg.transform.scale(victor_left, (629, 75))
 
 blaaber = pg.image.load("assets/blueberry.png").convert_alpha()
 blaaber = pg.transform.scale(blaaber, (82.66, 83.66))
@@ -38,7 +37,6 @@ play_rect = pg.image.load("assets/Play Rect.png").convert_alpha()
 quit_rect = pg.image.load("assets/Quit Rect.png").convert_alpha()
 pause_menu = pg.image.load("assets/Pause Rect.png").convert_alpha()
 menu_bck = pg.image.load("assets/Title Rect.png").convert_alpha()
-white_bg = pg.image.load("assets/white.jpg").convert_alpha()
 offwhite_bg = pg.image.load("assets/offwhite_bck.png").convert_alpha()
 
 

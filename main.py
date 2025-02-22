@@ -115,9 +115,6 @@ def play(game):
             for berry in all_ber: 
                 if berry.background == game.current_background_index:
                     berry.detect_collision_with_food(player, game, all_ber)
-                    #player.carryingFood = berry  # Sett bæret som det nåværende 
-                    #berry.x = player.x + 10  # Plasser bæret nær spilleren  
-                    #berry.y = player.y + 10
                     print(player.carryingFood)
             player.move(squares, game)
 
