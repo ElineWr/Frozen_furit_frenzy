@@ -115,7 +115,10 @@ def play(game):
             for berry in all_ber:  # Tegn alle bær  
                 if player.carryingFood == berry:
                     berry.background = current_background_index
-                if berry.background == current_background_index and not berry.is_collected:
+                    berry.x = player.x + 10  # Plasser bæret nær spilleren  
+                    berry.y = player.y + 10 
+
+                if berry.background == current_background_index: # and not berry.is_collected:
                     screen.blit(berry.image, (berry.x, berry.y))
 
         # Oppdater skjermen  

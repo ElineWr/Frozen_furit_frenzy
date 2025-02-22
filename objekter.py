@@ -70,11 +70,22 @@ class Food(pg.sprite.Sprite):
             if food.background == game.current_background_index:
                 if player_rect.colliderect(food_rect):
                     print(f"Spilleren har samlet {food}!") #.image
-                    #food.is_collected = True  # Marker bæret som samlet  
+                    food.is_collected = True  # Marker bæret som samlet  
                     player.carryingFood = food  # Spilleren bærer dette bæret #food 
-                    food.x = player.x + 10  # Plasser bæret nær spilleren  
-                    food.y = player.y + 10  
+                    #food.x = player.x + 10  # Plasser bæret nær spilleren  
+                    #food.y = player.y + 10  
                     return True  # Kollisjon oppstod med bæret
+                
+                #if player.carryingFood == food:
+                    #player.carryingFood.x = self.x + 5  # Oppdater x-posisjon  
+                    #player.carryingFood.y = self.y + 5  # Oppdater y-posisjon
+
+            keys_pressed = pg.key.get_pressed()
+            if food.background == 0 and self.is_collected:
+                if player.carryingFood:
+                    player.carryingFood.is_collected = False  # Slipp bæret  
+                    player.carryingFood = None  # Fjern referansen til bæret
+                
 
         return False  # Ingen kollisjon med noen bær
         

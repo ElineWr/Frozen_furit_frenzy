@@ -107,13 +107,6 @@ class Player(Object):
             if self.frame >= len(animasjons_liste[self.handling]):  # Loop the frames
                 self.frame = 0
 
-        if self.carryingFood:
-            self.carryingFood.x = self.x + 5  # Oppdater x-posisjon  
-            self.carryingFood.y = self.y + 5  # Oppdater y-posisjon
-            
-        if keys_pressed[pg.K_d] and self.carryingFood:
-            self.carryingFood.is_collected = False  # Slipp bæret  
-            self.carryingFood = None  # Fjern referansen til bæret
                 
             
     
