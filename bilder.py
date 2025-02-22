@@ -32,7 +32,7 @@ appelsin = pg.transform.scale(appelsin, (82.66, 83.66))
 bringeber = pg.image.load("assets/raspberry.png").convert_alpha()
 bringeber = pg.transform.scale(bringeber, (82.66, 83.66))
 
-tekst_bakgrunn = pg.image.load("assets/txt_background.png").convert_alpha()
+
 info_rect = pg.image.load("assets/Options Rect.png").convert_alpha()
 play_rect = pg.image.load("assets/Play Rect.png").convert_alpha()
 quit_rect = pg.image.load("assets/Quit Rect.png").convert_alpha()
