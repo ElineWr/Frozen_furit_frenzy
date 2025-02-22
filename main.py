@@ -31,22 +31,22 @@ game = Game()
 def tegne(background):
 
         if background == 1:
-            screen.blit(bjorneber, (300, 300))
-            screen.blit(bringeber, (50, 150))
+            screen.blit(bjorneber, (550, 600))
+            screen.blit(bringeber, (50, 200))
             screen.blit(appelsin, (60, 60))
             #print(f"Food position updated to coast: ({food_x}, {food_y})")
             
             
         elif background == 2:
             screen.blit(bjorneber, (950, 330))
-            screen.blit(blaaber, (20, 20))
-            screen.blit(bringeber, (40, 40))
+            screen.blit(blaaber, (100, 50))
+            screen.blit(bringeber, (150, 610))
             #print(f"Food position updated to coast: ({food_x}, {food_y})")
  
         elif background == 3:
 
             screen.blit(appelsin, (200, 100))
-            screen.blit(blaaber, (10, 10))
+            screen.blit(blaaber, (300, 400))
             #print(f"Food position updated to coast: ({food_x}, {food_y})")
 
 

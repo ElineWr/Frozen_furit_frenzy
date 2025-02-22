@@ -42,27 +42,6 @@ class Food(pg.sprite.Sprite):
     def movement(self):
          pass
     
-         
-    def draw(self, background):
-
-        if background == 1:
-            self.screen.blit(bjorneber, (300, 300))
-            self.screen.blit(bringeber, (50, 150))
-            self.screen.blit(appelsin, (60, 60))
-            #print(f"Food position updated to coast: ({food_x}, {food_y})")
-            
-            
-        elif background == 2:
-            self.screen.blit(bjorneber, (950, 330))
-            self.screen.blit(blaaber, (20, 20))
-            self.screen.blit(bringeber, (80, 600))
-            #print(f"Food position updated to coast: ({food_x}, {food_y})")
- 
-        elif background == 3:
-
-            self.screen.blit(appelsin, (200, 100))
-            self.screen.blit(blaaber, (10, 10))
-            #print(f"Food position updated to coast: ({food_x}, {food_y})")
 
         
 
