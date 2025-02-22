@@ -5,6 +5,8 @@ from bilder import*
 food_x = 0  # Default value
 food_y = 0  # Default value
 
+
+
 class Game(): 
     def __init__(self): 
         self.backgrounds = [house, coast, camp, cave]
@@ -47,4 +49,6 @@ class Game():
             
     def draw_background(self, screen):
         screen.blit(self.background, (0, 0))  # Tegn den nåværende bakgrunnen
+        
+    
 

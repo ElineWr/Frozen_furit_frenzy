@@ -38,10 +38,29 @@ class Player(Object):
         self.flipped = False
         self.height = self.image.get_height()
         self.width = 40 # bredden brukt til sprite
+        self.collected_foods = []
+        self.food_count = {  # Dictionary for å holde styr på antall  
+            "blaaber": 0,
+            "bjorneber": 0,
+            "bringebær": 0,
+            "appelsin": 0  
+        }
 
     def beat(self, x, y, carryingFood):
             pass
 
+    def collect_food(self, food):
+        self.collected_foods.append(food)  # Legg til bæret i inventaret
+
+        # Oppdater antall i food_count basert på typen av bær  
+        if food.image == blaaber:
+            self.food_count["blaaber"] += 1  
+        elif food.image == bjorneber:
+            self.food_count["bjorneber"] += 1  
+        elif food.image == bringeber:
+            self.food_count["bringebær"] += 1  
+        elif food.image == appelsin:
+            self.food_count["appelsin"] += 1
 
     
     def move(self, squares, game):
