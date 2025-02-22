@@ -14,7 +14,7 @@ class Square(pg.sprite.Sprite):
         self.background = background 
 
     
-    def tegn(self, screen, game):  # Bruker funksjonen til å se firkantene når jeg redigerer eller legger inn
+    def tegn(self, screen, game):  # Brukte funksjonen til å se firkantene når jeg redigerer eller legger inn
         pass
         # if self.background == game.current_background_index:
         #       pg.draw.rect(screen, self.farge, (self.x, self.y, self.width, self.height))
