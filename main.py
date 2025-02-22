@@ -53,30 +53,40 @@ def play():
 
     for x in range(food_animasjons_steps):
         food_animasjonsliste.append(blaaber_1.get_image(x, width_food = 82.66, height_food=83.66, scale=1, color=BLACK))
+        
+    # pause_button = Button(image=pause_menu, pos=(WIDTH - 50, 50), 
+    #                   text_input="☰", font=get_font(20), base_color=MEDIUM_BLUE, hovering_color=DARK_BLUE)
 
+    # PLAY_TEXT = get_font(45).render("This is the PLAY screen.", True, "White")
+    #     PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 260))
+    #     SCREEN.blit(PLAY_TEXT, PLAY_RECT)
 
     running = True
     while running:
+        
+        clock.tick(FPS)
         # try:
+        PLAY_MOUSE_POS = pg.mouse.get_pos()
+        
         for event in pg.event.get():
                 if event.type == pg.QUIT:
                     running = False
+                # if event.type == pg.MOUSEBUTTONDOWN:
+                #     if pause_button.checkForInput(PLAY_MOUSE_POS):
+                #         main_menu()  # Gå tilbake til hovedmenyen når pauseknappen trykkes
             
         # except Exception as e:
         #     print(f"Error: {e}")
         #     running = False
                     
-        clock.tick(FPS)
 
-        PLAY_MOUSE_POS = pg.mouse.get_pos()
-
-        # screen.fill("black")
-
-        # PLAY_TEXT = get_font(45).render("This is the PLAY screen.", True, "White")
-        # PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 260))
-        # screen.blit(PLAY_TEXT, PLAY_RECT)
+        # pause_button.changeColor(PLAY_MOUSE_POS)
+        # pause_button.update(screen)
 
 
+        # screen.fill(BLACK)
+
+    #    
         '''
         Kan bruke denne logikken til å lage en quit knapp i pause-meny
         
@@ -125,7 +135,6 @@ def play():
             print(f"Current Background Index: {current_background_index}")
 
         """
-
     
         # Skriver tekst på skjermen:
 
@@ -185,20 +194,46 @@ def play():
 
 
     # Brukeren har avsluttet programmet, game-loopen er ferdig. Avslutt pygame:
-    pg.quit()
+    # Men når denne er blokkert så kan man bruke avsluttknappen til bildet som en tilbake til meny-knapp
+    #  pg.quit()
 
-def options():
+def game_info():
     while True:
         OPTIONS_MOUSE_POS = pg.mouse.get_pos()
 
         screen.fill("white")
 
-        OPTIONS_TEXT = get_font(45).render("This is the OPTIONS screen.", True, "Black")
-        OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(WIDTH/2, 260))
-        screen.blit(OPTIONS_TEXT, OPTIONS_RECT)
+        INFO_HEADER = get_font(26).render("Her er info om hvordan spillet funker", True, BLACK)
+        HEADER_RECT = INFO_HEADER.get_rect(center=(WIDTH/2, 100))
+        screen.blit(INFO_HEADER, HEADER_RECT)
+        
+        screen.blit(victor_info, (WIDTH/2 - 50, 125))
+        
+        INFO_TEXT_LINES = [
+        "Victor har fått et viktig oppdrag:",
+        "Han må samle spesifikke bær i det",
+        "iskalde vinterlandskapet.",
+        "Følg instruksene nøye og ha det gøy",
+        "mens du navigerer snø og hindringer",
+        "for å hente bærene."
+        ]
 
-        OPTIONS_BACK = Button(image=None, pos=(WIDTH/2, 460), 
-                            text_input="BACK", font=get_font(75), base_color="Black", hovering_color=MEDIUM_BLUE)
+        y_offset = 300  # Startposisjon for teksten
+        for line in INFO_TEXT_LINES:
+            text_surface = get_font(20).render(line, True, BLACK)
+            text_rect = text_surface.get_rect(center=(WIDTH/2, y_offset))
+            screen.blit(text_surface, text_rect)
+            y_offset += 30  # Øk y-posisjonen for neste linje
+            
+
+            
+        KEYS_TXT = get_font(20).render("Med piltastene kan du navigere Victor", True, BLACK)
+        KEYS_RECT = KEYS_TXT.get_rect(center = (WIDTH/2, 500))
+        screen.blit(KEYS_TXT, KEYS_RECT)
+        
+
+        OPTIONS_BACK = Button(image=None, pos=(WIDTH/2, 600), 
+                            text_input="BACK", font=get_font(50), base_color=BLACK, hovering_color=MEDIUM_BLUE)
 
         OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
         OPTIONS_BACK.update(screen)
@@ -225,14 +260,14 @@ def main_menu():
 
         PLAY_BUTTON = Button(image=play_rect, pos=(WIDTH/2, 250), 
                             text_input="PLAY", font=get_font(75), base_color=OFFWHITE, hovering_color=DARK_BLUE)
-        OPTIONS_BUTTON = Button(image=opt_rect, pos=(WIDTH/2, 400), 
-                            text_input="OPTIONS", font=get_font(75), base_color=OFFWHITE, hovering_color=DARK_BLUE)
+        INFO_BUTTON = Button(image=info_rect, pos=(WIDTH/2, 400), 
+                            text_input="GAME INFO", font=get_font(60), base_color=OFFWHITE, hovering_color=DARK_BLUE)
         QUIT_BUTTON = Button(image=quit_rect, pos=(WIDTH/2, 550), 
                             text_input="QUIT", font=get_font(75), base_color=OFFWHITE, hovering_color=DARK_BLUE)
 
         screen.blit(MENU_TEXT, MENU_RECT)
 
-        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
+        for button in [PLAY_BUTTON, INFO_BUTTON, QUIT_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(screen)
         
@@ -243,8 +278,8 @@ def main_menu():
             if event.type == pg.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
                     play()
-                if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    options()
+                if INFO_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    game_info()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pg.quit()
                     pg.sys.exit()

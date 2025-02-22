@@ -31,8 +31,6 @@ class Food(Object):
          
     def draw(self, screen, player):
 
-        
-
         # plasering
         if change_background(player) == house:
             pass

@@ -15,6 +15,8 @@ coast = pg.transform.scale(coast, SIZE)
 victor = pg.image.load("assets/victor-removebg-preview.png").convert_alpha()
 victor = pg.transform.scale(victor, (629, 75))
 
+victor_info = pg.image.load("assets/victor_info.png").convert_alpha()
+
 victor_opp = pg.image.load("assets/victor_opp.jpg").convert_alpha()
 victor_opp = pg.transform.scale(victor_opp, (629, 75))
 
@@ -28,9 +30,11 @@ appelsin = pg.image.load("assets/orange_hover.png").convert_alpha()
 bringeber = pg.image.load("assets/raspberry_hover.png").convert_alpha()
 
 tekst_bakgrunn = pg.image.load("assets/txt_background.png").convert_alpha()
-opt_rect = pg.image.load("assets/Options Rect.png").convert_alpha()
+info_rect = pg.image.load("assets/Options Rect.png").convert_alpha()
 play_rect = pg.image.load("assets/Play Rect.png").convert_alpha()
 quit_rect = pg.image.load("assets/Quit Rect.png").convert_alpha()
 test = pg.image.load("assets/test.webp").convert_alpha()
+pause_menu = pg.image.load("assets/Pause Rect.png").convert_alpha()
+
 
 
