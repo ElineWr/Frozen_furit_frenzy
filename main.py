@@ -159,7 +159,7 @@ def game_info(game):
         INFO_TEXT_LINES = ["Victor har fått et viktig oppdrag:",
                            "Han må samle spesifikke bær i det",
                            "iskalde vinterlandskapet.",
-                           "Følg instruksene nøye og ha det gøy",
+                           "Følg instruksene fra oppgaven nøye og ha det gøy",
                            "mens du navigerer snø og hindringer",
                            "for å hente bærene."]
 
@@ -178,7 +178,7 @@ def game_info(game):
         INVENTORY_RECT = INVENTORY_TXT.get_rect(center=(WIDTH/2, 550))
         screen.blit(INVENTORY_TXT, INVENTORY_RECT)
         
-        EXIT = get_font(20).render("og  esc tar deg tilbake til hovedmenyen.", True, BLACK)
+        EXIT = get_font(20).render("og esc tar deg tilbake til hovedmenyen.", True, BLACK)
         EXIT_RECT = EXIT.get_rect(center = (WIDTH/2, 600))
         screen.blit(EXIT, EXIT_RECT)
 

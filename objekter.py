@@ -96,19 +96,4 @@ all_ber = [
 ber = pg.sprite.Group()
 ber.add(all_ber)
 
-        
-
-
-    
-#frame_0 = ber.get_image(frame = 0, width_food = 82.66, height_food=83.66, scale=1, color=BLACK)
-
-
-
-
-class Isbjorn(Object):
-
-    def __init__(self, x, y, image):
-        super().__init__(x, y, image)
-
-
 
