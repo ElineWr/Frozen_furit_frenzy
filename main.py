@@ -84,13 +84,6 @@ def play(game):
     
     while running:
 
-        all_done = all(value == "Done" for value in player.food_count.values())
-
-        # Output the result
-        if all_done:
-            print("All values are 'Done'")
-
-
         clock.tick(FPS)
 
         PLAY_MOUSE_POS = pg.mouse.get_pos()
@@ -172,7 +165,7 @@ def game_info(game):
                            "iskalde vinterlandskapet.",
                            "Følg instruksene fra oppgaven nøye og ha det gøy",
                            "mens du navigerer snø og hindringer",
-                           "for å hente bærene."]
+                           "for å hente bærene med hjem."]
 
         y_offset = 300  # Startposisjon for teksten  
         for line in INFO_TEXT_LINES:
@@ -270,6 +263,14 @@ def show_inventory(player):
 
             y_offset += 50 
 
+        all_done = all(value == "Done" for value in player.food_count.values())
+
+        if all_done:
+    
+            HAPPY_VICTOR = get_font(20).render("Yes! Du er ferdig, nå er Victor glad!", True, DARK_BLUE)
+            HAPPY_RECT = HAPPY_VICTOR.get_rect(center=(WIDTH/2, 525))
+            screen.blit(HAPPY_VICTOR, HAPPY_RECT)
+        
 
         
         # Håndter hendelser  
