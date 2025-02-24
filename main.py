@@ -257,7 +257,7 @@ def show_inventory(player):
 
         if all_done:
     
-            HAPPY_VICTOR = get_font(20).render("Yes! Du er ferdig, nå er Victor glad og mett!", True, DARK_BLUE)
+            HAPPY_VICTOR = get_font(16).render("Yes! Du er ferdig, nå er Victor glad og mett!", True, DARK_BLUE)
             HAPPY_RECT = HAPPY_VICTOR.get_rect(center=(WIDTH/2, 525))
             screen.blit(HAPPY_VICTOR, HAPPY_RECT)
     
