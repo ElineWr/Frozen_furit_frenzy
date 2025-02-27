@@ -134,7 +134,6 @@ def play(game):
  
         pg.display.update()
         
-    play(game)
 
     pg.quit()
 
